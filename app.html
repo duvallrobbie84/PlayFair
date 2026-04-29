@@ -59,7 +59,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 #tracker { display: none; }
 
 /* ── STICKY HEADER ── */
-.sticky-header { position: sticky; top: 0; z-index: 50; background: #f2f2f7; padding-top: 2px; }
+.sticky-header { background: #f2f2f7; padding-top: 2px; }
+.warnings-bar { display: flex; flex-direction: column; gap: 4px; margin-bottom: 4px; }
 .t-header { display: flex; align-items: center; justify-content: space-between; padding: 0; background: #1e7d34; border-radius: 12px; margin-bottom: 6px; overflow: hidden; }
 .t-header-inner { display: flex; align-items: center; flex: 1; gap: 10px; padding: 8px 12px; min-width: 0; }
 .t-header-icon { height: 44px; width: 44px; border-radius: 8px; object-fit: cover; flex-shrink: 0; }
@@ -121,7 +122,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 
 /* ── PLAYER LIST ── */
 .pl-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-.pl-count-warn { font-size: 22px; font-weight: 600; color: #A32D2D; background: #FCEBEB; border: 1px solid #f5c0c0; border-radius: 6px; padding: 6px 14px; display: none; text-align: center; width: 100%; margin-bottom: 4px; }
+.pl-count-warn { position: sticky; top: 0; z-index: 50; font-size: 14px; font-weight: 600; color: #A32D2D; background: #FCEBEB; border: 1px solid #f5c0c0; border-radius: 6px; padding: 8px 14px; display: none; text-align: center; width: 100%; margin-bottom: 6px; }
 .pl-count-warn.on { display: block; }
 .pl-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 0.5px solid #f0f0f0; }
 .pl-row:last-child { border-bottom: none; }
@@ -196,6 +197,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 .sc-btn:hover { background: #EAF3DE; border-color: #639922; color: #3B6D11; }
 .sc-btn.unk   { font-weight: 400; color: #888; }
 .sc-btn.unk:hover { background: #eee; }
+.settings-2x2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .settings-section { margin-bottom: 18px; }
 .settings-divider { border-top: 0.5px solid #eee; margin: 16px 0; }
 .adj-match-row { background: #f5f5f5; border-radius: 9px; padding: 10px 12px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; border: 1px solid #e0e0e0; }
@@ -328,6 +330,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 
 <!-- ══ TRACKER ══ -->
 <div id="tracker">
+  <div class="pl-count-warn" id="pl-count-warn"></div>
   <div class="sticky-header">
     <div class="t-header">
       <div class="t-header-inner">
@@ -356,6 +359,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
       </div>
       <div class="undo-row"><button class="undo-btn" id="undo-btn" disabled>↩ Remove last goal</button></div>
     </div>
+    <div class="warnings-bar">
+      <div class="pl-behind-banner" id="pl-behind-banner"></div>
+    </div>
   </div>
 
   <!-- SCROLLABLE CONTENT -->
@@ -376,9 +382,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
     <div class="card" id="player-list-card">
       <div class="pl-header">
         <div class="section-title" style="margin-bottom:0">Players</div>
-        <div class="pl-count-warn" id="pl-count-warn"></div>
       </div>
-      <div class="pl-behind-banner" id="pl-behind-banner"></div>
       <div id="player-list"></div>
     </div>
 
@@ -396,7 +400,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
       <button class="btn-blue" id="export-btn">📤 Export</button>
       <button class="btn-blue" id="screenshot-btn">📷 Screenshot</button>
     </div>
-    <div style="text-align:center;padding:4px 0 24px;"><a href="/" style="font-size:12px;color:#aaa;text-decoration:none;">Info &amp; Contact</a></div>
+    <div style="text-align:center;padding:4px 0 24px;"><a href="index.html" style="font-size:12px;color:#aaa;text-decoration:none;">Info &amp; Contact</a></div>
   </div>
 </div>
 </div>
@@ -428,30 +432,54 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
     </div>
     <div class="settings-divider"></div>
     <div class="settings-section">
-      <span class="setup-lbl">Squad size</span>
-      <div class="pill-group" id="m-squad-pills"></div>
-    </div>
-    <div class="settings-section">
-      <span class="setup-lbl">Team size</span>
-      <select class="formation-select" id="m-team-size-select" style="max-width:200px">
-        <option value="3">3-a-side</option>
-        <option value="4">4-a-side</option>
-        <option value="5">5-a-side</option>
-        <option value="6">6-a-side</option>
-        <option value="7">7-a-side</option>
-        <option value="8">8-a-side</option>
-        <option value="9">9-a-side</option>
-        <option value="10">10-a-side</option>
-        <option value="11">11-a-side</option>
-      </select>
-    </div>
-    <div class="settings-section">
-      <div class="setup-row">
-        <span class="setup-lbl">Periods</span>
-        <input class="period-len-input" id="m-period-count-input" type="number" min="1" max="8" value="4" style="width:60px">
-        <span class="period-len-hint">× </span>
-        <input class="period-len-input" id="m-period-len-input" type="number" min="1" max="90" value="10" style="width:60px">
-        <span class="period-len-hint">min each</span>
+      <div class="settings-2x2">
+        <div class="d-field">
+          <div class="d-lbl">Squad size</div>
+          <select class="formation-select" id="m-squad-select">
+            <option value="5">5 players</option>
+            <option value="6">6 players</option>
+            <option value="7">7 players</option>
+            <option value="8">8 players</option>
+            <option value="9">9 players</option>
+            <option value="10">10 players</option>
+            <option value="11">11 players</option>
+            <option value="12">12 players</option>
+            <option value="13">13 players</option>
+            <option value="14">14 players</option>
+            <option value="15">15 players</option>
+          </select>
+        </div>
+        <div class="d-field">
+          <div class="d-lbl">Team size</div>
+          <select class="formation-select" id="m-team-size-select">
+            <option value="3">3-a-side</option>
+            <option value="4">4-a-side</option>
+            <option value="5">5-a-side</option>
+            <option value="6">6-a-side</option>
+            <option value="7">7-a-side</option>
+            <option value="8">8-a-side</option>
+            <option value="9">9-a-side</option>
+            <option value="10">10-a-side</option>
+            <option value="11">11-a-side</option>
+          </select>
+        </div>
+        <div class="d-field">
+          <div class="d-lbl">Periods</div>
+          <select class="formation-select" id="m-period-count-input">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+          </select>
+        </div>
+        <div class="d-field">
+          <div class="d-lbl">Period length (mins)</div>
+          <input class="d-input" id="m-period-len-input" type="text" inputmode="numeric" placeholder="e.g. 10">
+        </div>
       </div>
     </div>
     <div class="settings-divider"></div>
@@ -460,7 +488,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
       <div class="player-names-grid" id="m-player-names"></div>
     </div>
     <div class="mbtns"><button class="ok-blue" id="settings-close">Done</button></div>
-    <div style="text-align:center;padding-top:12px;"><a href="/" style="font-size:12px;color:#aaa;text-decoration:none;">Info &amp; Contact</a></div>
+    <div style="text-align:center;padding-top:12px;"><a href="index.html" style="font-size:12px;color:#aaa;text-decoration:none;">Info &amp; Contact</a></div>
   </div>
 </div>
 
@@ -573,7 +601,7 @@ function tickFromTimestamp(){
   players.forEach(p=>{
     if(p.running){
       p.seconds=p._secsAtStart+elapsed;
-      const e=document.getElementById('pt-'+p.id); if(e)e.textContent=fmt(p.seconds);
+      const e=document.getElementById('pt-'+p.id); if(e)e.textContent=fmtPlayer(p.seconds);
     }
   });
 
@@ -620,7 +648,8 @@ document.addEventListener('visibilitychange',()=>{
 });
 
 // ── HELPERS ──────────────────────────────────────────────────
-function fmt(s){s=Math.max(0,s);return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
+function fmt(s){s=Math.max(0,s);const m=Math.floor(s/60),sec=Math.floor(s%60);return String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0');}
+function fmtPlayer(s){s=Math.max(0,s);return Math.floor(s/60)+'m';}
 function fmtMins(s){return String(Math.round(s/60));}
 function fmtDate(v){if(!v)return'';const[y,m,d]=v.split('-');return d+'/'+m+'/'+y;}
 function parseMmSs(str){str=str.trim();const m=str.match(/^(\d{1,2}):(\d{2})$/);if(m)return Math.max(0,parseInt(m[1])*60+parseInt(m[2]));const n=parseInt(str);if(!isNaN(n))return Math.max(0,n*60);return null;}
@@ -779,14 +808,9 @@ function buildSettingsModal(){
   const notice=document.getElementById('settings-locked-notice');
   if(notice) notice.classList.toggle('on', locked);
 
-  const sp=document.getElementById('m-squad-pills'); sp.innerHTML='';
-  for(let i=5;i<=15;i++){
-    const b=document.createElement('button');
-    b.className='pill'+(i===cfg.squad?' sel':'')+(locked?' off':'');
-    b.textContent=i;
-    if(!locked) b.addEventListener('click',()=>{cfg.squad=i;sp.querySelectorAll('.pill').forEach(p=>p.classList.remove('sel'));b.classList.add('sel');refreshModalFormValidation();buildPlayerNameInputsWithPos('m-player-names',true);});
-    sp.appendChild(b);
-  }
+  const sp=document.getElementById('m-squad-select');
+  sp.value=cfg.squad; sp.disabled=locked;
+  sp.onchange=locked?null:()=>{cfg.squad=Number(sp.value);if(cfg.team>cfg.squad)cfg.squad=cfg.team;saveConfig();refreshModalFormValidation();buildPlayerNameInputsWithPos('m-player-names',true);};
   // Team size dropdown
   const mts=document.getElementById('m-team-size-select');
   mts.value=cfg.team; mts.disabled=locked;
@@ -1036,7 +1060,7 @@ function renderPlayerList(){
     row.appendChild(block);
     // Timer
     const tv=document.createElement('div'); tv.className='pl-timer'+(p.running?' running':'');
-    tv.id='pt-'+p.id; tv.textContent=fmt(p.seconds); row.appendChild(tv);
+    tv.id='pt-'+p.id; tv.textContent=fmtPlayer(p.seconds); row.appendChild(tv);
     container.appendChild(row);
   });
 }
@@ -1181,7 +1205,7 @@ document.getElementById('adj-save').addEventListener('click',()=>{
   document.querySelectorAll('#adj-players .adj-time-input').forEach(inp=>{
     const pid=Number(inp.dataset.pid); const newSecs=parseMmSs(inp.value); if(newSecs===null)return;
     players[pid].seconds=newSecs;
-    const e=document.getElementById('pt-'+pid); if(e)e.textContent=fmt(players[pid].seconds);
+    const e=document.getElementById('pt-'+pid); if(e)e.textContent=fmtPlayer(players[pid].seconds);
   });
   // Re-snapshot running players so adjusted values become the new baseline
   players.forEach(p=>{ if(p.running){ p._secsAtStart=p.seconds; }});
@@ -1318,7 +1342,7 @@ window.addEventListener('beforeunload',e=>{if(players.some(p=>p.seconds>0)||gFor
 
 // ── BOOT ─────────────────────────────────────────────────────
 if(loadConfig()&&cfg.squad>=cfg.team){if(!cfg.formCounts)cfg.formCounts={gk:1,def:2,mid:2,att:0};initTracker();}
-else{cfg.squad=7;cfg.team=5;cfg.formCounts={gk:1,def:2,mid:2,att:0};cfg.formIdx=0;cfg.periodCount=4;cfg.periodMins=10;cfg.home='';cfg.away='';cfg.date='';cfg.location='';cfg.playerNames=[];document.getElementById('setup').style.display='block';buildSetup();}
+else{cfg.squad=7;cfg.team=5;cfg.formCounts={gk:1,def:2,mid:2,att:0};cfg.formIdx=0;cfg.periodCount=4;cfg.periodMins=10;cfg.home='';cfg.away='';cfg.date='';cfg.location='';cfg.playerNames=[];initTracker();buildSettingsModal();open('settings-modal');}
 </script>
 </body>
 </html>
