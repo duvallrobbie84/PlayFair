@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="robots" content="noindex, nofollow">
 <title>Playfair</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -213,6 +214,14 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 .adj-time-input.changed { border-color: #2563a8; background: #e8f4ff; color: #2563a8; }
 .adj-time-hint { font-size: 10px; color: #bbb; text-align: center; margin-top: 2px; }
 .exp-pre  { background: #f5f5f5; border-radius: 8px; padding: 12px; font-size: 11px; line-height: 1.8; color: #333; white-space: pre-wrap; font-family: monospace; max-height: 300px; overflow-y: auto; border: 0.5px solid #e0e0e0; }
+/* ── COACH'S NOTES ── */
+.notes-intro { background: #EAF3DE; border: 1px solid #639922; border-radius: 10px; padding: 10px 13px; font-size: 12px; color: #3B6D11; line-height: 1.6; margin-bottom: 16px; }
+.notes-intro strong { color: #2d6e00; }
+.notes-section-lbl { font-size: 10px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; color: #888; margin-bottom: 6px; display: block; }
+.notes-textarea { width: 100%; border: 1.5px solid #e0e0e0; border-radius: 9px; padding: 10px 12px; font-size: 13px; font-family: inherit; color: #111; background: #fafafa; resize: vertical; min-height: 90px; line-height: 1.6; outline: none; box-sizing: border-box; }
+.notes-textarea:focus { border-color: #2563a8; background: #f0f5ff; }
+.notes-clear-btn { display: flex; align-items: center; gap: 6px; margin: 0 auto; padding: 8px 20px; font-size: 12px; border: 1px solid #ddd; border-radius: 8px; background: #f5f5f5; color: #aaa; cursor: pointer; font-family: inherit; transition: all 0.15s; }
+.notes-clear-btn:hover { background: #FCEBEB; border-color: #A32D2D; color: #A32D2D; }
 .exp-acts { display: flex; gap: 8px; margin-top: 12px; }
 .exp-acts button { padding: 9px 12px; font-size: 13px; border-radius: 8px; cursor: pointer; font-family: inherit; font-weight: 500; border: 1px solid #ccc; background: #fff; color: #333; flex: 1; }
 .exp-copy  { background: #2563a8 !important; color: #fff !important; border-color: #2563a8 !important; }
@@ -388,7 +397,10 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
     </div>
 
     <div class="card">
-      <div class="section-title">📋 Match Planner</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+        <div class="section-title" style="margin-bottom:0">📋 Match Planner</div>
+        <button class="btn-blue" id="notes-open-btn" style="padding:7px 14px;font-size:12px;">📝 Coach's Notes</button>
+      </div>
       <div class="planner-sub">Plan rotations by period. Leave blank = bench.</div>
       <div style="overflow-x:auto">
         <table class="plan-tbl"><thead id="plan-head"></thead><tbody id="plan-body"></tbody><tfoot id="plan-foot"></tfoot></table>
@@ -485,7 +497,10 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
     </div>
     <div class="settings-divider"></div>
     <div class="settings-section">
-      <span class="setup-lbl">Player names</span>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+        <span class="setup-lbl" style="margin-bottom:0">Player names</span>
+        <button id="clear-names-btn" style="padding:4px 12px;font-size:11px;border:1px solid #ddd;border-radius:6px;background:#f5f5f5;color:#aaa;cursor:pointer;font-family:inherit;">Clear names</button>
+      </div>
       <div class="player-names-grid" id="m-player-names"></div>
     </div>
     <div class="mbtns"><button class="ok-blue" id="settings-close">Done</button></div>
@@ -531,6 +546,28 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 <div class="overlay" id="prematch-ov">
   <div class="modal-sm"><h3>Match not started</h3><p>Player swaps are disabled until the match is running. To change the starting line-up, go to Settings.</p>
     <div class="mbtns"><button id="prematch-ok">OK</button><button class="ok-blue" id="prematch-settings">⚙ Settings</button></div>
+  </div>
+</div>
+
+<!-- Coach's Notes -->
+<div class="overlay" id="notes-ov">
+  <div class="modal">
+    <h3>📝 Coach's Notes</h3>
+    <div class="notes-intro">
+      <strong>Team talks win games.</strong> Use this space to capture your thoughts before and during the match — tactical adjustments, motivational cues, or anything you want to say at half-time. Great coaches plan their words, not just their formations.
+    </div>
+    <div style="margin-bottom:16px;">
+      <span class="notes-section-lbl">Pre-match</span>
+      <textarea class="notes-textarea" id="notes-prematch" placeholder="Team talk, starting instructions, key focus areas…"></textarea>
+    </div>
+    <div style="margin-bottom:20px;">
+      <span class="notes-section-lbl">Match day notes</span>
+      <textarea class="notes-textarea" id="notes-matchday" placeholder="Half-time thoughts, tactical tweaks, observations during the game…"></textarea>
+    </div>
+    <div style="text-align:center;margin-bottom:12px;">
+      <button class="notes-clear-btn" id="notes-clear-btn">🗑 Clear all notes</button>
+    </div>
+    <div class="mbtns"><button class="ok-blue" id="notes-close">Done</button></div>
   </div>
 </div>
 
@@ -772,6 +809,16 @@ function syncNameInputs(idx,val,fromModal){
 }
 
 // ── SETTINGS MODAL ───────────────────────────────────────────
+document.getElementById('clear-names-btn').addEventListener('click', () => {
+  if (!confirm('Are you sure you want to clear all player names?')) return;
+  cfg.playerNames = [];
+  players.forEach(p => { p.name = ''; });
+  saveConfig();
+  buildPlayerNameInputsWithPos('m-player-names', true);
+  buildPlayerNameInputs('setup-player-names', false);
+  render(); renderPlan(); updateScore();
+});
+
 document.getElementById('settings-btn').addEventListener('click',()=>{buildSettingsModal();open('settings-modal');});
 document.getElementById('settings-close').addEventListener('click',()=>{
   close('settings-modal'); saveConfig();
@@ -1285,7 +1332,7 @@ document.getElementById('reset-ok').addEventListener('click',()=>{
     if(!planner[i])planner[i]={};
     periodCols.forEach(c=>{if(!(c in planner[i]))planner[i][c]='';});
   }
-  clearSel(); close('reset-ov'); updatePlayBtn(); updateScore(); updatePeriodIndicator(); updateMatchInfo();
+  clearSel(); close('reset-ov'); clearNotes(); updatePlayBtn(); updateScore(); updatePeriodIndicator(); updateMatchInfo();
   document.getElementById('clock').textContent='00:00';
   document.getElementById('clock-state').textContent='Stopped';
   document.getElementById('clock-state').className='sticky-clock-state pause';
@@ -1340,6 +1387,61 @@ document.getElementById('screenshot-btn').addEventListener('click',()=>{
 });
 
 window.addEventListener('beforeunload',e=>{if(players.some(p=>p.seconds>0)||gFor>0||gAg>0){e.preventDefault();e.returnValue='';}});
+
+// ── COACH'S NOTES ─────────────────────────────────────────────
+const NOTES_KEY = 'playfair_coach_notes';
+
+function loadNotes() {
+  try {
+    const raw = localStorage.getItem(NOTES_KEY);
+    return raw ? JSON.parse(raw) : { prematch: '', matchday: '' };
+  } catch(e) { return { prematch: '', matchday: '' }; }
+}
+
+function saveNotes(notes) {
+  try { localStorage.setItem(NOTES_KEY, JSON.stringify(notes)); } catch(e) {}
+}
+
+function clearNotes() {
+  saveNotes({ prematch: '', matchday: '' });
+  const pm = document.getElementById('notes-prematch');
+  const md = document.getElementById('notes-matchday');
+  if(pm) pm.value = '';
+  if(md) md.value = '';
+}
+
+document.getElementById('notes-open-btn').addEventListener('click', () => {
+  const notes = loadNotes();
+  document.getElementById('notes-prematch').value = notes.prematch || '';
+  document.getElementById('notes-matchday').value = notes.matchday || '';
+  open('notes-ov');
+});
+
+document.getElementById('notes-close').addEventListener('click', () => {
+  const notes = {
+    prematch: document.getElementById('notes-prematch').value,
+    matchday: document.getElementById('notes-matchday').value,
+  };
+  saveNotes(notes);
+  close('notes-ov');
+});
+
+document.getElementById('notes-clear-btn').addEventListener('click', () => {
+  if(confirm('Clear all coach\'s notes? This cannot be undone.')) {
+    clearNotes();
+  }
+});
+
+// Auto-save notes as user types
+['notes-prematch', 'notes-matchday'].forEach(id => {
+  const el = document.getElementById(id);
+  if(el) el.addEventListener('input', () => {
+    saveNotes({
+      prematch: document.getElementById('notes-prematch').value,
+      matchday: document.getElementById('notes-matchday').value,
+    });
+  });
+});
 
 // ── BOOT ─────────────────────────────────────────────────────
 if(loadConfig()&&cfg.squad>=cfg.team){if(!cfg.formCounts)cfg.formCounts={gk:1,def:2,mid:2,att:0};initTracker();}
