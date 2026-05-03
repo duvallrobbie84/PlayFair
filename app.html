@@ -222,7 +222,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 .notes-textarea:focus { border-color: #2563a8; background: #f0f5ff; }
 .notes-clear-btn { display: flex; align-items: center; gap: 6px; margin: 0 auto; padding: 8px 20px; font-size: 12px; border: 1px solid #ddd; border-radius: 8px; background: #f5f5f5; color: #aaa; cursor: pointer; font-family: inherit; transition: all 0.15s; }
 .notes-clear-btn:hover { background: #FCEBEB; border-color: #A32D2D; color: #A32D2D; }
-.exp-acts { display: flex; gap: 8px; margin-top: 12px; }
+.screenshot-opt-btn { width:100%; padding:14px 12px; font-size:14px; font-weight:600; border:1.5px solid #2563a8; border-radius:10px; background:#E6F1FB; color:#2563a8; cursor:pointer; font-family:inherit; text-align:left; }
+.screenshot-opt-btn:hover { background:#B5D4F4; }
+
 .exp-acts button { padding: 9px 12px; font-size: 13px; border-radius: 8px; cursor: pointer; font-family: inherit; font-weight: 500; border: 1px solid #ccc; background: #fff; color: #333; flex: 1; }
 .exp-copy  { background: #2563a8 !important; color: #fff !important; border-color: #2563a8 !important; }
 .exp-email { background: #EAF3DE !important; color: #3B6D11 !important; border-color: #639922 !important; }
@@ -568,6 +570,19 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
       <button class="notes-clear-btn" id="notes-clear-btn">🗑 Clear all notes</button>
     </div>
     <div class="mbtns"><button class="ok-blue" id="notes-close">Done</button></div>
+  </div>
+</div>
+
+<!-- Screenshot choice modal -->
+<div class="overlay" id="screenshot-ov">
+  <div class="modal-sm">
+    <h3>📷 Screenshot</h3>
+    <p>Choose what to capture:</p>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:4px;">
+      <button class="screenshot-opt-btn" id="ss-scoresheet">⚽ Scoresheet only</button>
+      <button class="screenshot-opt-btn" id="ss-coaches">📋 Coach's view</button>
+    </div>
+    <div class="mbtns"><button id="screenshot-cancel">Cancel</button></div>
   </div>
 </div>
 
@@ -1342,11 +1357,16 @@ document.getElementById('reset-ok').addEventListener('click',()=>{
 
 // ── SCREENSHOT ───────────────────────────────────────────────
 document.getElementById('screenshot-btn').addEventListener('click',()=>{
-  const btn=document.getElementById('screenshot-btn');
-  btn.textContent='⏳ Capturing…'; btn.disabled=true;
+  open('screenshot-ov');
+});
+document.getElementById('screenshot-cancel').addEventListener('click',()=>{
+  close('screenshot-ov');
+});
 
+// ── Shared capture helper ─────────────────────────────────────
+function doCapture(element, filenameSuffix){
   // Replace <select> elements in the planner with styled <div>s for capture
-  const selects=document.querySelectorAll('#plan-body select');
+  const selects=element.querySelectorAll('select');
   const replacements=[];
   selects.forEach(sel=>{
     const div=document.createElement('div');
@@ -1357,33 +1377,152 @@ document.getElementById('screenshot-btn').addEventListener('click',()=>{
     sel.style.display='none';
     replacements.push({sel,div});
   });
-
   // Hide toggles for capture
-  const toggles=document.querySelectorAll('.pl-toggle');
+  const toggles=element.querySelectorAll('.pl-toggle');
   toggles.forEach(t=>t.style.display='none');
 
-  html2canvas(document.getElementById('tracker'),{
-    scale:2,
-    useCORS:true,
-    backgroundColor:'#f2f2f7',
+  return html2canvas(element,{
+    scale:2, useCORS:true, backgroundColor:'#f2f2f7',
     scrollX:0, scrollY:0,
-    windowWidth:document.getElementById('tracker').scrollWidth,
-    height:document.getElementById('tracker').scrollHeight,
+    windowWidth:element.scrollWidth,
+    height:element.scrollHeight,
   }).then(canvas=>{
     replacements.forEach(({sel,div})=>{sel.style.display='';div.remove();});
     toggles.forEach(t=>t.style.display='');
     const a=document.createElement('a');
     const us=cfg.home||'Us'; const oppo=cfg.away||'Oppo';
     const dateStr=cfg.date?cfg.date:new Date().toISOString().slice(0,10);
-    a.download=(dateStr+'-playfair-'+us+'-vs-'+oppo).replace(/\s+/g,'-').toLowerCase()+'.png';
+    a.download=(dateStr+'-playfair-'+us+'-vs-'+oppo+'-'+filenameSuffix).replace(/\s+/g,'-').toLowerCase()+'.png';
     a.href=canvas.toDataURL('image/png');
     a.click();
-    btn.textContent='📷 Screenshot'; btn.disabled=false;
   }).catch(()=>{
     replacements.forEach(({sel,div})=>{sel.style.display='';div.remove();});
     toggles.forEach(t=>t.style.display='');
-    btn.textContent='📷 Screenshot'; btn.disabled=false;
   });
+}
+
+// ── Shared: build the scoresheet header + score card HTML ─────
+function buildScoresheetHtml(logoSrc){
+  const us = cfg.home || 'Us';
+  const oppo = cfg.away || 'Oppo';
+  const dateStr = cfg.date ? fmtDate(cfg.date) : '';
+  const location = cfg.location || '';
+
+  let goalsHtml = '';
+  if(gLog.length===0){
+    goalsHtml='<div style="color:#ccc;font-size:13px;">No goals scored</div>';
+  } else {
+    gLog.forEach(g=>{
+      const minLabel = g.min ? g.min+"'" : '';
+      const scorerName = g.scorer || 'Unknown';
+      if(g.type==='for'){
+        goalsHtml+=`<div style="display:flex;gap:8px;padding:5px 0;border-bottom:0.5px solid #f0f0f0;font-size:13px;"><span style="color:#bbb;min-width:40px;">${minLabel}</span><span style="color:#3B6D11;font-weight:600;">⚽ ${us} — ${scorerName}</span></div>`;
+      } else {
+        goalsHtml+=`<div style="display:flex;gap:8px;padding:5px 0;border-bottom:0.5px solid #f0f0f0;font-size:13px;"><span style="color:#bbb;min-width:40px;">${minLabel}</span><span style="color:#A32D2D;font-weight:600;">⚽ ${oppo} — ${scorerName}</span></div>`;
+      }
+    });
+  }
+
+  return `
+    <div style="background:#1e7d34;border-radius:12px;padding:12px 14px;margin-bottom:12px;display:flex;align-items:center;justify-content:center;gap:12px;">
+      <img src="${logoSrc}" style="height:44px;width:44px;border-radius:8px;object-fit:cover;flex-shrink:0;">
+      <div style="text-align:center;">
+        <div style="font-size:22px;font-weight:800;color:#fff;">Playfair</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.75);font-style:italic;">Fair time for every player</div>
+      </div>
+    </div>
+    <div style="background:#fff;border:0.5px solid #e0e0e0;border-radius:12px;padding:16px;margin-bottom:8px;">
+      <div style="font-size:18px;font-weight:700;color:#111;margin-bottom:4px;">${us} vs ${oppo}</div>
+      ${dateStr||location ? `<div style="font-size:12px;color:#888;margin-bottom:12px;">${dateStr}${dateStr&&location?' · ':''}${location}</div>` : '<div style="margin-bottom:12px;"></div>'}
+      <div style="display:flex;align-items:center;justify-content:center;gap:24px;background:#f9f9f9;border-radius:10px;padding:16px;margin-bottom:16px;">
+        <div style="text-align:center;"><div style="font-size:42px;font-weight:800;color:#3B6D11;">${gFor}</div><div style="font-size:12px;color:#888;margin-top:2px;">${us}</div></div>
+        <div style="font-size:28px;font-weight:700;color:#ccc;">–</div>
+        <div style="text-align:center;"><div style="font-size:42px;font-weight:800;color:#A32D2D;">${gAg}</div><div style="font-size:12px;color:#888;margin-top:2px;">${oppo}</div></div>
+      </div>
+      <div style="font-size:12px;font-weight:700;color:#555;margin-bottom:8px;">⚽ Goalscorers</div>
+      ${goalsHtml}
+    </div>`;
+}
+
+// ── Option 1: Scoresheet only ─────────────────────────────────
+document.getElementById('ss-scoresheet').addEventListener('click',()=>{
+  close('screenshot-ov');
+  const logoSrc = document.querySelector('.t-header-icon').src;
+  const wrap = document.createElement('div');
+  wrap.style.cssText='position:fixed;left:-9999px;top:0;width:380px;background:#f2f2f7;padding:12px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;';
+  wrap.innerHTML = buildScoresheetHtml(logoSrc) +
+    `<div style="text-align:center;padding:8px 0 4px;font-size:11px;color:#aaa;">Powered by useplayfair.com</div>`;
+  document.body.appendChild(wrap);
+  doCapture(wrap,'scoresheet').then(()=>{ document.body.removeChild(wrap); });
+});
+
+// ── Option 2: Coach's view ────────────────────────────────────
+document.getElementById('ss-coaches').addEventListener('click',()=>{
+  close('screenshot-ov');
+
+  const logoSrc = document.querySelector('.t-header-icon').src;
+
+  // Clone player list and planner (no buttons/toggles — doCapture handles those)
+  const playerListClone = document.getElementById('player-list-card').cloneNode(true);
+  const plannerCard = document.querySelector('#tracker .card:last-of-type');
+  // Find the planner card (contains plan-tbl)
+  const plannerCardEl = document.getElementById('plan-body').closest('.card');
+  const plannerClone = plannerCardEl ? plannerCardEl.cloneNode(true) : null;
+
+  // Remove the "Coach's Notes" button from planner clone — it's a UI button not needed in export
+  if(plannerClone){
+    const notesBtn = plannerClone.querySelector('#notes-open-btn');
+    if(notesBtn) notesBtn.parentElement.style.display='none';
+    const clearBtn = plannerClone.querySelector('#plan-clr');
+    if(clearBtn) clearBtn.closest('.plan-clr').style.display='none';
+  }
+
+  // Load coach's notes
+  const notes = loadNotes();
+  let notesHtml = '';
+  if(notes.prematch || notes.matchday){
+    notesHtml = `<div style="background:#fff;border:0.5px solid #e0e0e0;border-radius:12px;padding:16px;margin-bottom:8px;">
+      <div style="font-size:13px;font-weight:700;color:#333;margin-bottom:10px;">📝 Coach's Notes</div>`;
+    if(notes.prematch){
+      notesHtml += `<div style="font-size:10px;font-weight:700;letter-spacing:0.7px;text-transform:uppercase;color:#888;margin-bottom:4px;">Pre-match</div>
+        <div style="font-size:13px;color:#111;white-space:pre-wrap;margin-bottom:12px;">${notes.prematch.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`;
+    }
+    if(notes.matchday){
+      notesHtml += `<div style="font-size:10px;font-weight:700;letter-spacing:0.7px;text-transform:uppercase;color:#888;margin-bottom:4px;">Match day notes</div>
+        <div style="font-size:13px;color:#111;white-space:pre-wrap;">${notes.matchday.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`;
+    }
+    notesHtml += `</div>`;
+  }
+
+  const wrap = document.createElement('div');
+  wrap.style.cssText='position:fixed;left:-9999px;top:0;width:420px;background:#f2f2f7;padding:12px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;';
+  wrap.innerHTML = buildScoresheetHtml(logoSrc);
+
+  // Append player list
+  const plDiv = document.createElement('div');
+  plDiv.style.cssText='background:#fff;border:0.5px solid #e0e0e0;border-radius:12px;padding:12px;margin-bottom:8px;';
+  const plTitle = document.createElement('div');
+  plTitle.style.cssText='font-size:13px;font-weight:600;color:#333;margin-bottom:10px;';
+  plTitle.textContent='Players';
+  plDiv.appendChild(plTitle);
+  const plInner = playerListClone.querySelector('#player-list');
+  if(plInner) plDiv.appendChild(plInner.cloneNode(true));
+  wrap.appendChild(plDiv);
+
+  // Append planner
+  if(plannerClone){
+    plannerClone.style.marginBottom='8px';
+    wrap.appendChild(plannerClone);
+  }
+
+  // Append notes
+  if(notesHtml) wrap.insertAdjacentHTML('beforeend', notesHtml);
+
+  wrap.insertAdjacentHTML('beforeend',
+    `<div style="text-align:center;padding:8px 0 4px;font-size:11px;color:#aaa;">Powered by useplayfair.com</div>`);
+
+  document.body.appendChild(wrap);
+  doCapture(wrap,'coaches-view').then(()=>{ document.body.removeChild(wrap); });
 });
 
 window.addEventListener('beforeunload',e=>{if(players.some(p=>p.seconds>0)||gFor>0||gAg>0){e.preventDefault();e.returnValue='';}});
