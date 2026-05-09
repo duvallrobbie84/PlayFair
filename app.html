@@ -726,6 +726,8 @@ function savePlayers(){
   cfg.savedPlayers=byId.map(p=>({
     id:p.id, name:p.name, onPitch:p.onPitch, goals:p.goals, seconds:p.seconds,
   }));
+  // Persist match state so it survives tab kills / browser restarts
+  cfg.savedMatch={gFor:gFor,gAg:gAg,gLog:gLog.slice(),matchSecs:matchSecs,matchComplete:matchComplete,currentPeriod:currentPeriod,periodJustEnded:periodJustEnded};
   saveConfig();
 }
 function loadConfig(){try{const s=localStorage.getItem(STORAGE_KEY);if(s){Object.assign(cfg,JSON.parse(s));return true;}}catch(e){}return false;}
@@ -960,11 +962,21 @@ function initTracker(){
     periodCols.forEach(c=>{if(!(c in planner[i]))planner[i][c]='';});
   }
   clearInterval(masterTimer); masterTimer=null; masterStartTime=null;
-  matchSecs=0; playing=false; matchSecsAtStart=0;
-  gFor=0; gAg=0; gLog=[];
+  playing=false; matchSecsAtStart=0;
+  // Restore match state if available (survives tab kill / browser restart)
+  const sm=cfg.savedMatch;
+  if(sm && (sm.matchSecs>0 || sm.gFor>0 || sm.gAg>0 || (sm.gLog&&sm.gLog.length))){
+    gFor=sm.gFor||0; gAg=sm.gAg||0; gLog=sm.gLog||[];
+    matchSecs=sm.matchSecs||0;
+    matchComplete=sm.matchComplete||false;
+    currentPeriod=sm.currentPeriod||1;
+    periodJustEnded=sm.periodJustEnded||false;
+  } else {
+    matchSecs=0; gFor=0; gAg=0; gLog=[];
+  }
   document.getElementById('setup').style.display='none';
   document.getElementById('tracker').style.display='block';
-  document.getElementById('clock').textContent='00:00';
+  document.getElementById('clock').textContent=fmt(matchSecs);
   updateMatchInfo(); updatePeriodIndicator(); updatePlayBtn(); updateScore(); buildPlanHead(); render(); renderPlan();
 }
 
@@ -1039,7 +1051,7 @@ function buildScorer(){
   players.forEach(p=>{const b=document.createElement('button');b.className='sc-btn';b.textContent=pname(p);b.addEventListener('click',()=>{recordGoal(p.id);close('scorer-ov');});g.appendChild(b);});
   const u=document.createElement('button');u.className='sc-btn unk';u.textContent='Unknown';u.addEventListener('click',()=>{recordGoal(null);close('scorer-ov');});g.appendChild(u);
 }
-function recordGoal(pid){const p=periodJustEnded?currentPeriod-1:currentPeriod;gFor++;const scorer=pid!==null?players.find(pl=>pl.id===pid):null;if(scorer)scorer.goals++;gLog.push({type:'for',scorer:scorer?pname(scorer):null,sid:pid,min:Math.max(1,Math.floor(matchSecs/60)+1),period:p});updateScore();savePlayers();}
+function recordGoal(pid){const p=periodJustEnded?currentPeriod-1:currentPeriod;gFor++;const scorer=pid!==null?players.find(pl=>pl.id===pid):null;if(scorer)scorer.goals++;gLog.push({type:'for',scorer:scorer?pname(scorer):null,sid:pid,min:Math.max(1,Math.floor(matchSecs/60)+1),period:p});updateScore();savePlayers();render();}
 function updateScore(){
   const us=cfg.home||'Us'; const oppo=cfg.away||'Oppo';
   document.getElementById('mit-score-line').textContent=us+' '+gFor+' – '+gAg+' '+oppo;
@@ -1329,7 +1341,7 @@ document.getElementById('reset-ok').addEventListener('click',()=>{
   clearInterval(masterTimer); masterTimer=null; masterStartTime=null;
   matchSecs=0; playing=false; gFor=0; gAg=0; gLog=[];
   currentPeriod=1; matchComplete=false; periodJustEnded=false;
-  cfg.savedPlayers=[];
+  cfg.savedPlayers=[]; cfg.savedMatch=null;
   // Rebuild players array from scratch, keeping names only
   players=Array.from({length:cfg.squad},(_,i)=>({
     id:i, name:cfg.playerNames[i]||'',
