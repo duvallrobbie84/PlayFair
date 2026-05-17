@@ -237,6 +237,21 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 
   <div class="card">
     <div class="card-label">User Guide</div>
+    <h2 class="guide-toggle" onclick="toggleVideo()" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;">
+      See it in action — video
+      <span id="video-chevron" style="font-size:14px;color:var(--green-dark);font-family:'DM Sans',sans-serif;font-weight:600;margin-left:12px;transition:transform 0.2s;">▼ Show</span>
+    </h2>
+    <div id="video-content" style="display:none;padding-top:8px;">
+      <p style="margin:0 0 12px;">Watch a walkthrough of Playfair on YouTube — see how to set up your squad, track playing time live, and export your match summary.</p>
+      <a href="https://www.youtube.com/@UsePlayFair" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:#ff0000;color:#fff;font-weight:700;font-size:15px;padding:11px 20px;border-radius:10px;text-decoration:none;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8z"/><polygon fill="red" points="9.75,15.02 15.5,12 9.75,8.98"/><polygon fill="white" points="9.75,15.02 15.5,12 9.75,8.98"/></svg>
+        Watch on YouTube
+      </a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">User Guide</div>
     <h2 class="guide-toggle" onclick="toggleGuide()" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;">
       Getting started
       <span id="guide-chevron" style="font-size:14px;color:var(--green-dark);font-family:'DM Sans',sans-serif;font-weight:600;margin-left:12px;transition:transform 0.2s;">▼ Show</span>
@@ -366,14 +381,24 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     <a href="app.html">← Back to the app</a>
   </div>
 
-  <div style="text-align:center;margin-top:24px;padding-bottom:8px;">
+  <div style="text-align:center;margin-top:24px;padding-bottom:8px;display:flex;justify-content:center;align-items:center;gap:16px;">
     <a href="https://www.facebook.com/profile.php?id=61589086473255" target="_blank" rel="noopener noreferrer" aria-label="Follow Playfair on Facebook">
       <img src="facebook-logo.png" alt="Facebook" style="width:32px;height:32px;opacity:0.75;transition:opacity 0.15s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.75'">
+    </a>
+    <a href="https://www.youtube.com/@UsePlayFair" target="_blank" rel="noopener noreferrer" aria-label="Watch Playfair on YouTube">
+      <img src="youtube-logo.jpg" alt="YouTube" style="width:32px;height:32px;opacity:0.75;transition:opacity 0.15s;border-radius:6px;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.75'">
     </a>
   </div>
 
 </div>
 <script>
+function toggleVideo(){
+  const content=document.getElementById('video-content');
+  const chevron=document.getElementById('video-chevron');
+  const open=content.style.display==='none';
+  content.style.display=open?'block':'none';
+  chevron.textContent=open?'▲ Hide':'▼ Show';
+}
 function toggleFaq(){
   const items=document.getElementById('faq-items');
   const chevron=document.getElementById('faq-chevron');
