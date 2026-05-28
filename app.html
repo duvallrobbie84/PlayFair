@@ -251,20 +251,20 @@ body {
 /* Score card */
 .score-sticky {
   background: var(--card); border: 1px solid var(--card-border);
-  border-radius: 16px; padding: 10px 14px; margin-bottom: 8px;
+  border-radius: 16px; padding: 10px; margin-bottom: 8px;
   box-shadow: var(--card-shadow); transition: background 0.2s;
 }
-.score-row { display: flex; align-items: center; gap: 8px; }
+.score-row { display: flex; align-items: stretch; gap: 0; }
 .score-btn {
-  flex: 1; padding: 9px 6px; border-radius: 10px; border: 1.5px solid;
-  cursor: pointer; font-family: var(--font); font-size: 13px; font-weight: 600; text-align: center;
-  transition: all 0.12s;
+  flex: 1; padding: 20px 12px; border: none; border-radius: 12px;
+  cursor: pointer; font-family: var(--font); font-size: 17px; font-weight: 700;
+  transition: all 0.12s; line-height: 1.4; display: flex; flex-direction: column; align-items: center; justify-content: center;
 }
-.score-btn.for { background: var(--green-pale); color: var(--green); border-color: var(--green-mid); }
-.score-btn.ag  { background: var(--red-pale); color: var(--red); border-color: var(--red); }
+.score-btn.for { background: var(--green-pale); color: var(--green); }
+.score-btn.ag  { background: var(--red-pale); color: var(--red); }
 .score-btn.for:hover { background: var(--green-mid); color: #fff; }
 .score-btn.ag:hover  { background: var(--red); color: #fff; }
-.score-mid { display: flex; flex-direction: column; align-items: center; min-width: 76px; }
+.score-mid { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 0 0 auto; min-width: 90px; text-align: center; padding: 12px 8px; }
 .score-num { font-size: 26px; font-weight: 700; color: var(--text-primary); letter-spacing: 4px; line-height: 1; }
 .score-sub { font-size: 10px; color: var(--text-muted); letter-spacing: 1px; margin-top: 2px; }
 .undo-row { margin-top: 8px; display: flex; justify-content: center; }
@@ -401,10 +401,15 @@ body.dark .pl-bar-track { background: rgba(255,255,255,0.1); }
 .plan-clr-btn:hover { background: var(--red-pale); border-color: var(--red); color: var(--red); }
 
 /* ── FOOTER ── */
-.footer { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+.btn-bookings-inline { width: 100%; margin-top: 10px; padding: 10px; border-radius: 10px; border: none; background: #fff8e6; color: #b07d00; font-family: var(--font); font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.12s; }
+.btn-bookings-inline:hover { background: #e6a817; color: #fff; }
+.footer { display: flex; justify-content: center; gap: 8px; margin-bottom: 20px; }
+.footer button { flex: 1; max-width: 110px; line-height: 1.4; padding-top: 8px; padding-bottom: 8px; }
 .btn-red  { padding: 10px 22px; font-size: 13px; font-weight: 600; border: 1.5px solid var(--red); border-radius: 10px; background: var(--bg); color: var(--red); cursor: pointer; font-family: var(--font); transition: background 0.12s; }
 .btn-red:hover  { background: var(--red-pale); }
 .btn-blue { padding: 10px 22px; font-size: 13px; font-weight: 600; border: 1.5px solid var(--green); border-radius: 10px; background: var(--green-pale); color: var(--green); cursor: pointer; font-family: var(--font); transition: all 0.12s; }
+.btn-yellow { padding: 10px 22px; font-size: 13px; font-weight: 600; border: 1.5px solid #e6a817; border-radius: 10px; background: #fff8e6; color: #b07d00; cursor: pointer; font-family: var(--font); transition: all 0.12s; }
+.btn-yellow:hover { background: #e6a817; color: #fff; }
 .btn-blue:hover { background: var(--green-mid); color: #fff; border-color: var(--green-mid); }
 
 /* ── MODALS ── */
@@ -416,7 +421,7 @@ body.dark .pl-bar-track { background: rgba(255,255,255,0.1); }
 .modal .sub { font-size: 13px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.5; }
 .modal-sm p { font-size: 13px; color: var(--text-secondary); margin-bottom: 18px; line-height: 1.5; }
 .mbtns { display: flex; gap: 10px; justify-content: flex-end; margin-top: 16px; }
-.mbtns button { padding: 9px 18px; font-size: 13px; font-weight: 600; border: 1.5px solid var(--card-border); border-radius: 10px; cursor: pointer; background: var(--bg); color: var(--text-primary); font-family: var(--font); transition: all 0.12s; }
+.mbtns button, .mbtns-btn { padding: 9px 18px; font-size: 13px; font-weight: 600; border: 1.5px solid var(--card-border); border-radius: 10px; cursor: pointer; background: var(--bg); color: var(--text-primary); font-family: var(--font); transition: all 0.12s; }
 .mbtns .ok-blue { background: var(--green); color: #fff; border-color: var(--green); }
 .mbtns .ok-red  { background: var(--red); color: #fff; border-color: var(--red); }
 
@@ -425,6 +430,27 @@ body.dark .pl-bar-track { background: rgba(255,255,255,0.1); }
 .sc-btn:hover { background: var(--green-pale); border-color: var(--green); color: var(--green); }
 .sc-btn.unk   { font-weight: 400; color: var(--text-muted); }
 .sc-btn.unk:hover { background: var(--bg); }
+.sc-btn.sel-goal  { background: var(--green); border-color: var(--green); color: #fff; }
+.sc-btn.sel-assist { background: var(--green-pale); border-color: var(--green); color: var(--green); }
+.g-ast { font-size: 11px; color: var(--text-muted); font-style: italic; }
+.g-section-divider { border-top: 1px solid var(--card-border); margin: 10px 0 6px; }
+.g-section-hdr { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+.g-ast-name { font-size: 11px; font-style: italic; }
+.g-ast-name.ast-for { color: var(--green); }
+.g-ast-name.ast-ag  { color: var(--red); }
+.toggle-switch { position: relative; display: inline-block; width: 44px; height: 24px; flex-shrink: 0; }
+.toggle-switch input { opacity: 0; width: 0; height: 0; }
+.toggle-slider { position: absolute; cursor: pointer; inset: 0; background: #ccc; border-radius: 24px; transition: 0.2s; }
+.toggle-slider:before { content: ''; position: absolute; width: 18px; height: 18px; left: 3px; bottom: 3px; background: #fff; border-radius: 50%; transition: 0.2s; }
+input:checked + .toggle-slider { background: var(--green); }
+input:checked + .toggle-slider:before { transform: translateX(20px); }
+.edit-log-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 4px; border-bottom: 1px solid var(--card-border); font-size: 13px; gap: 8px; }
+.edit-log-row:last-child { border-bottom: none; }
+.edit-log-text { flex: 1; line-height: 1.4; }
+.edit-log-btns { display: flex; gap: 6px; flex-shrink: 0; }
+.edit-log-btns button { background: none; border: 1px solid var(--card-border); border-radius: 6px; padding: 4px 8px; font-size: 13px; cursor: pointer; font-family: var(--font); }
+.edit-log-btns button:hover { background: var(--bg); }
+.g-period-hdr { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin: 8px 0 2px; }
 
 .settings-2x2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .settings-section { margin-bottom: 18px; }
@@ -606,11 +632,15 @@ body.dark .pl-bar-track { background: rgba(255,255,255,0.1); }
     </div>
     <div class="score-sticky">
       <div class="score-row">
-        <button class="score-btn for" id="for-btn">⚽ For us</button>
-        <div class="score-mid"><div class="score-num"><span id="sc-for">0</span> – <span id="sc-ag">0</span></div><div class="score-sub">US – OPPO</div></div>
-        <button class="score-btn ag" id="ag-btn">⚽ Concede</button>
+        <button class="score-btn for" id="for-btn">⚽<br>For us</button>
+        <div class="score-mid">
+          <div class="score-num"><span id="sc-for">0</span> – <span id="sc-ag">0</span></div>
+          <div class="score-sub">US – OPPO</div>
+          <button class="undo-btn" id="undo-btn" disabled style="margin-top:10px;">↩ Remove last goal</button>
+        </div>
+        <button class="score-btn ag" id="ag-btn">⚽<br>Concede</button>
       </div>
-      <div class="undo-row"><button class="undo-btn" id="undo-btn" disabled>↩ Remove last goal</button></div>
+      <button class="btn-bookings-inline" id="bookings-inline-btn" style="display:none;">🟨🟥 Bookings</button>
     </div>
     <div class="warnings-bar">
       <div class="pl-behind-banner" id="pl-behind-banner"></div>
@@ -657,9 +687,10 @@ body.dark .pl-bar-track { background: rgba(255,255,255,0.1); }
     </div>
 
     <div class="footer">
-      <button class="btn-red" id="reset-btn">Reset all</button>
-      <button class="btn-blue" id="export-btn">📤 Export</button>
-      <button class="btn-blue" id="screenshot-btn">📷 Screenshot</button>
+      <button class="btn-red" id="reset-btn">🔄<br>Reset</button>
+      <button class="btn-blue" id="editlog-btn">✏️<br>Edit log</button>
+      <button class="btn-blue" id="export-btn">📤<br>Export</button>
+      <button class="btn-blue" id="screenshot-btn">📷<br>Screenshot</button>
     </div>
     <div style="text-align:center;padding:4px 0 24px;"><a href="index.html" style="font-size:12px;color:#aaa;text-decoration:none;">Info &amp; Contact</a></div>
   </div>
@@ -668,9 +699,29 @@ body.dark .pl-bar-track { background: rgba(255,255,255,0.1); }
 
 <!-- Scorer -->
 <div class="overlay" id="scorer-ov">
-  <div class="modal"><h3>⚽ Who scored?</h3><div class="sub">Select the scorer or tap Unknown.</div>
+  <div class="modal">
+    <h3>⚽ Who scored?</h3>
     <div class="scorer-grid" id="scorer-grid"></div>
-    <div class="mbtns"><button id="scorer-cancel">Cancel</button></div>
+    <div style="border-top:1px solid var(--card-border);margin:14px 0 10px;"></div>
+    <div style="font-size:12px;font-weight:700;color:var(--text-muted);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:8px;">🎯 Assist? <span style="font-weight:400;text-transform:none;letter-spacing:0;">(optional)</span></div>
+    <div class="scorer-grid" id="assist-grid"></div>
+    <div class="mbtns"><button id="scorer-cancel">Cancel</button><button class="ok-blue" id="scorer-ok">Log goal</button></div>
+  </div>
+</div>
+
+<!-- Oppo scorer modal -->
+<div class="overlay" id="ag-scorer-ov">
+  <div class="modal-sm">
+    <h3>⚽ Who scored?</h3>
+    <div style="margin:12px 0 6px;">
+      <div style="font-size:10px;font-weight:700;color:var(--text-muted);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:4px;">Scorer</div>
+      <input id="ag-scorer-input" type="text" class="d-input" style="width:100%;font-size:14px;padding:4px 0 6px;border-bottom:1.5px solid var(--card-border);" placeholder="Scorer name">
+    </div>
+    <div style="margin:14px 0 6px;">
+      <div style="font-size:10px;font-weight:700;color:var(--text-muted);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:4px;">🎯 Assist? <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:10px;">(optional)</span></div>
+      <input id="ag-assist-input" type="text" class="d-input" style="width:100%;font-size:14px;padding:4px 0 6px;border-bottom:1.5px solid var(--card-border);" placeholder="Assister name">
+    </div>
+    <div class="mbtns"><button id="ag-scorer-cancel">Cancel</button><button class="ok-blue" id="ag-scorer-ok">Log goal</button></div>
   </div>
 </div>
 
@@ -697,6 +748,8 @@ body.dark .pl-bar-track { background: rgba(255,255,255,0.1); }
         <div class="d-field">
           <div class="d-lbl">Squad size</div>
           <select class="formation-select" id="m-squad-select">
+            <option value="3">3 players</option>
+            <option value="4">4 players</option>
             <option value="5">5 players</option>
             <option value="6">6 players</option>
             <option value="7">7 players</option>
@@ -767,6 +820,19 @@ body.dark .pl-bar-track { background: rgba(255,255,255,0.1); }
           </select>
         </div>
         <div class="d-field" style="font-size:11px;color:var(--text-muted);padding-top:14px;">Warn when a player is this far behind their fair share</div>
+      </div>
+    </div>
+    <div class="settings-divider"></div>
+    <div class="settings-section">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div>
+          <div class="setup-lbl" style="margin-bottom:2px;">Match has bookings</div>
+          <div style="font-size:11px;color:var(--text-muted);">Show bookings button during match</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="m-bookings-toggle">
+          <span class="toggle-slider"></span>
+        </label>
       </div>
     </div>
     <div class="settings-divider"></div>
@@ -858,6 +924,75 @@ body.dark .pl-bar-track { background: rgba(255,255,255,0.1); }
   </div>
 </div>
 
+<!-- Bookings -->
+<div class="overlay" id="booking-ov">
+  <div class="modal-sm">
+    <h3>🟨 Add booking</h3>
+    <div style="margin:12px 0 8px;">
+      <div style="font-size:10px;font-weight:700;color:var(--text-muted);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:6px;">Team</div>
+      <div style="display:flex;gap:8px;">
+        <button class="sc-btn" id="bk-team-us">Us</button>
+        <button class="sc-btn" id="bk-team-oppo">Oppo</button>
+      </div>
+    </div>
+    <div style="margin:12px 0 8px;">
+      <div style="font-size:10px;font-weight:700;color:var(--text-muted);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:6px;">Card</div>
+      <div style="display:flex;gap:8px;">
+        <button class="sc-btn" id="bk-card-y">🟨 Yellow</button>
+        <button class="sc-btn" id="bk-card-r">🟥 Red</button>
+      </div>
+    </div>
+    <div style="margin:12px 0 8px;">
+      <div style="font-size:10px;font-weight:700;color:var(--text-muted);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:6px;">Player <span style="font-weight:400;text-transform:none;font-size:10px;">(optional)</span></div>
+      <div class="scorer-grid" id="bk-player-grid"></div>
+      <input id="bk-oppo-name" type="text" class="d-input" style="width:100%;font-size:14px;padding:4px 0 6px;border-bottom:1.5px solid var(--card-border);display:none;" placeholder="Player name (optional)">
+    </div>
+    <div class="mbtns"><button id="bk-cancel">Cancel</button><button class="ok-blue" id="bk-ok">Log booking</button></div>
+    <div style="margin-top:10px;display:flex;justify-content:center;"><button class="undo-btn" id="bk-undo-btn" disabled>↩ Remove last booking</button></div>
+  </div>
+</div>
+
+<!-- Edit log -->
+<div class="overlay" id="editlog-ov">
+  <div class="modal" style="max-height:80vh;display:flex;flex-direction:column;">
+    <h3>✏️ Edit log</h3>
+    <div id="editlog-list" style="overflow-y:auto;flex:1;margin:10px 0;"></div>
+    <div style="display:flex;gap:8px;margin:8px 0 4px;">
+      <button class="mbtns-btn" id="add-goal-btn" style="flex:1;">+ Add goal</button>
+      <button class="mbtns-btn" id="add-booking-btn" style="flex:1;">+ Add booking</button>
+    </div>
+    <div class="mbtns"><button id="editlog-close">Close</button></div>
+  </div>
+</div>
+
+<!-- Edit event -->
+<div class="overlay" id="editevent-ov">
+  <div class="modal-sm" style="max-height:80vh;overflow-y:auto;">
+    <h3 id="editevent-title">Edit event</h3>
+    <div id="editevent-body"></div>
+    <div class="mbtns"><button id="editevent-cancel">Cancel</button><button class="ok-blue" id="editevent-save">Save</button></div>
+  </div>
+</div>
+
+<!-- Second yellow -->
+<div class="overlay" id="second-yellow-ov">
+  <div class="modal-sm">
+    <h3>🟨🟨 Second yellow</h3>
+    <p id="second-yellow-name" style="font-weight:700;font-size:15px;text-align:center;margin:10px 0 4px;"></p>
+    <p style="text-align:center;font-size:13px;color:var(--text-muted);margin-bottom:14px;">has received a second yellow. Add a red card?</p>
+    <div class="mbtns"><button id="second-yellow-no">No</button><button class="ok-red" id="second-yellow-yes">Yes, add red</button></div>
+  </div>
+</div>
+
+<!-- Lineup check -->
+<div class="overlay" id="lineup-ov">
+  <div class="modal-sm">
+    <h3>⚽ Check your line-up!</h3>
+    <div id="lineup-body" style="margin:12px 0;font-size:13px;line-height:1.8;"></div>
+    <div class="mbtns"><button id="lineup-wait">Wait</button><button class="ok-blue" id="lineup-go">Let's go</button></div>
+  </div>
+</div>
+
 <!-- Reset -->
 <div class="overlay" id="reset-ov">
   <div class="modal-sm"><h3>Reset match?</h3><p>Clears all timers, scores and goals. Player names and settings are kept.</p>
@@ -906,7 +1041,7 @@ let players=[],planner={},periodCols=[];
 let matchSecs=0,playing=false;
 let currentPeriod=1,totalPeriods=4,periodSecs=600,matchComplete=false,periodJustEnded=false;
 
-let gFor=0,gAg=0,gLog=[];
+let gFor=0,gAg=0,gLog=[],bkLog=[];
 
 // ── TIMER ENGINE — single master interval ────────────────────
 // One interval drives everything. Timestamps used for background catch-up.
@@ -1007,7 +1142,7 @@ function savePlayers(){
     id:p.id, name:p.name, onPitch:p.onPitch, goals:p.goals, seconds:p.seconds,
   }));
   // Persist match state so it survives tab kills / browser restarts
-  cfg.savedMatch={gFor:gFor,gAg:gAg,gLog:gLog.slice(),matchSecs:matchSecs,matchComplete:matchComplete,currentPeriod:currentPeriod,periodJustEnded:periodJustEnded};
+  cfg.savedMatch={gFor:gFor,gAg:gAg,gLog:gLog.slice(),bkLog:bkLog.slice(),matchSecs:matchSecs,matchComplete:matchComplete,currentPeriod:currentPeriod,periodJustEnded:periodJustEnded};
   saveConfig();
 }
 function loadConfig(){try{const s=localStorage.getItem(STORAGE_KEY);if(s){Object.assign(cfg,JSON.parse(s));return true;}}catch(e){}return false;}
@@ -1032,7 +1167,7 @@ function updateMatchInfo(){
 // ── SETUP SCREEN ─────────────────────────────────────────────
 function buildSetup(){
   const sp=document.getElementById('squad-pills'); sp.innerHTML='';
-  for(let i=5;i<=15;i++){
+  for(let i=3;i<=15;i++){
     const b=document.createElement('button'); b.className='pill'+(i===cfg.squad?' sel':''); b.textContent=i;
     b.addEventListener('click',()=>{cfg.squad=i;sp.querySelectorAll('.pill').forEach(p=>p.classList.remove('sel'));b.classList.add('sel');refreshSetupFormValidation();refreshSetupSummary();buildPlayerNameInputs('setup-player-names',false);});
     sp.appendChild(b);
@@ -1170,6 +1305,9 @@ function buildSettingsModal(){
   pli.oninput=locked?null:e=>{cfg.periodMins=Math.max(1,parseInt(e.target.value)||10);const pc=getPeriodConfig();periodSecs=pc.secs;saveConfig();};
   const ftsEl=document.getElementById('m-fairness-threshold');
   if(ftsEl){ ftsEl.value=cfg.fairnessThreshold||5; ftsEl.onchange=e=>{cfg.fairnessThreshold=parseInt(e.target.value)||5;saveConfig();updatePlayerList();}; }
+  const bkToggle=document.getElementById('m-bookings-toggle');
+  bkToggle.checked=!!cfg.hasBookings;
+  bkToggle.onchange=()=>{cfg.hasBookings=bkToggle.checked;saveConfig();applyBookingsVisibility();};
   document.getElementById('m-d-home').value=cfg.home||''; document.getElementById('m-d-home').oninput=e=>{cfg.home=e.target.value;saveConfig();updateMatchInfo();};
   document.getElementById('m-d-away').value=cfg.away||''; document.getElementById('m-d-away').oninput=e=>{cfg.away=e.target.value;saveConfig();updateMatchInfo();};
   document.getElementById('m-d-home-short').value=cfg.homeShort||''; document.getElementById('m-d-home-short').oninput=e=>{cfg.homeShort=e.target.value;saveConfig();};
@@ -1250,7 +1388,7 @@ function initTracker(){
   // Restore match state if available (survives tab kill / browser restart)
   const sm=cfg.savedMatch;
   if(sm && (sm.matchSecs>0 || sm.gFor>0 || sm.gAg>0 || (sm.gLog&&sm.gLog.length))){
-    gFor=sm.gFor||0; gAg=sm.gAg||0; gLog=sm.gLog||[];
+    gFor=sm.gFor||0; gAg=sm.gAg||0; gLog=sm.gLog||[]; bkLog=sm.bkLog||[];
     matchSecs=sm.matchSecs||0;
     matchComplete=sm.matchComplete||false;
     currentPeriod=sm.currentPeriod||1;
@@ -1316,54 +1454,209 @@ function updatePlayBtn(){
   if(playing){b.textContent='⏹ Stop';b.className='big-play-btn running';s.textContent='Playing';s.className='sticky-clock-state play';}
   else{const lbl=currentPeriod===1?'▶ Start':'▶ '+(periodCols[currentPeriod-1]||'Continue');b.textContent=lbl;b.className='big-play-btn stopped';s.textContent='Stopped';s.className='sticky-clock-state pause';}
 }
+function showLineupCheck(onConfirm){
+  const benched=players.filter(p=>!p.onPitch).map(p=>pname(p));
+  const benchedStr=benched.length?benched.join(', '):'None';
+  const col=periodCols[currentPeriod-1]||'';
+  let plannerUsed=false;
+  let planBenched=[];
+  if(col){
+    for(let id=0;id<cfg.squad;id++){
+      const val=(planner[id]&&planner[id][col])||'';
+      const pl=players.find(p=>p.id===id);
+      if(!val||val==='SUB') planBenched.push(pname(pl||{id}));
+      if(val&&val!=='SUB') plannerUsed=true;
+    }
+  }
+  const body=document.getElementById('lineup-body');
+  let html='<div style="margin-bottom:6px;"><strong>Benched:</strong> '+benchedStr+'</div>';
+  if(plannerUsed){
+    const planBStr=planBenched.length?planBenched.join(', '):'None';
+    html+='<div><strong>Planner says bench:</strong> '+planBStr+'</div>';
+  }
+  body.innerHTML=html;
+  document.getElementById('lineup-go').onclick=()=>{close('lineup-ov');onConfirm();};
+  document.getElementById('lineup-wait').onclick=()=>{close('lineup-ov');};
+  open('lineup-ov');
+}
+
 document.getElementById('play-btn').addEventListener('click',()=>{
-  if(matchComplete)return; playing=!playing; if(playing)startAll(); else pauseAll(); updatePlayBtn(); render();
+  if(matchComplete)return;
+  if(!playing){
+    showLineupCheck(()=>{playing=true;startAll();updatePlayBtn();render();});
+  } else {
+    playing=false;pauseAll();updatePlayBtn();render();
+  }
 });
 
 // ── GOALS ────────────────────────────────────────────────────
 document.getElementById('for-btn').addEventListener('click',()=>{buildScorer();open('scorer-ov');});
-document.getElementById('ag-btn').addEventListener('click',()=>{const p=periodJustEnded?currentPeriod-1:currentPeriod;gAg++;gLog.push({type:'ag',scorer:null,sid:null,min:Math.max(1,Math.floor(matchSecs/60)+1),period:p});updateScore();});
-document.getElementById('scorer-cancel').addEventListener('click',()=>close('scorer-ov'));
+document.getElementById('ag-btn').addEventListener('click',()=>{
+  const defaultName=cfg.awayShort||cfg.away||'Oppo';
+  const inp=document.getElementById('ag-scorer-input');
+  inp.value=defaultName;
+  document.getElementById('ag-assist-input').value='';
+  open('ag-scorer-ov');
+  setTimeout(()=>{inp.select();},50);
+});
+document.getElementById('ag-scorer-cancel').addEventListener('click',()=>close('ag-scorer-ov'));
+document.getElementById('ag-scorer-ok').addEventListener('click',()=>{
+  const scorerName=document.getElementById('ag-scorer-input').value.trim()||(cfg.awayShort||cfg.away||'Oppo');
+  const assistName=document.getElementById('ag-assist-input').value.trim()||null;
+  const p=periodJustEnded?currentPeriod-1:currentPeriod;
+  gAg++;
+  gLog.push({type:'ag',scorer:scorerName,sid:null,assist:assistName,min:Math.max(1,Math.floor(matchSecs/60)+1),period:p});
+  updateScore();
+  close('ag-scorer-ov');
+});
+document.getElementById('scorer-cancel').addEventListener('click',()=>{_selectedScorerId=null;_selectedAssist=null;close('scorer-ov');});
 document.getElementById('undo-btn').addEventListener('click',()=>{
   if(!gLog.length)return; const l=gLog.pop();
   if(l.type==='for'){gFor=Math.max(0,gFor-1);if(l.sid!==null)players[l.sid].goals=Math.max(0,players[l.sid].goals-1);}
   else gAg=Math.max(0,gAg-1);
   updateScore();savePlayers();render();
 });
-function buildScorer(){
-  const g=document.getElementById('scorer-grid'); g.innerHTML='';
-  players.forEach(p=>{const b=document.createElement('button');b.className='sc-btn';b.textContent=pname(p);b.addEventListener('click',()=>{recordGoal(p.id);close('scorer-ov');});g.appendChild(b);});
-  const u=document.createElement('button');u.className='sc-btn unk';u.textContent='Unknown';u.addEventListener('click',()=>{recordGoal(null);close('scorer-ov');});g.appendChild(u);
+let _selectedScorerId=null;
+
+function scrollToAssist(){
+  const el=document.getElementById('assist-grid');
+  if(el) setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'nearest'}),80);
 }
-function recordGoal(pid){const p=periodJustEnded?currentPeriod-1:currentPeriod;gFor++;const scorer=pid!==null?players.find(pl=>pl.id===pid):null;if(scorer)scorer.goals++;gLog.push({type:'for',scorer:scorer?pname(scorer):null,sid:pid,min:Math.max(1,Math.floor(matchSecs/60)+1),period:p});updateScore();savePlayers();render();}
+let _selectedAssist=null; // null=none, 'pen', 'freekick', or player id (number)
+
+function buildScorer(){
+  _selectedScorerId=null;
+  _selectedAssist=null;
+
+  // Scorer grid
+  const g=document.getElementById('scorer-grid'); g.innerHTML='';
+  players.forEach(p=>{
+    const b=document.createElement('button'); b.className='sc-btn'; b.textContent=pname(p);
+    b.dataset.pid=p.id;
+    b.addEventListener('click',()=>{
+      document.querySelectorAll('#scorer-grid .sc-btn').forEach(x=>x.classList.remove('sel-goal'));
+      b.classList.add('sel-goal');
+      _selectedScorerId=p.id;
+      scrollToAssist();
+    });
+    g.appendChild(b);
+  });
+  const u=document.createElement('button'); u.className='sc-btn unk'; u.textContent='Unknown';
+  u.addEventListener('click',()=>{
+    document.querySelectorAll('#scorer-grid .sc-btn').forEach(x=>x.classList.remove('sel-goal'));
+    u.classList.add('sel-goal');
+    _selectedScorerId=null;
+    scrollToAssist();
+  });
+  g.appendChild(u);
+
+  // Assist grid
+  const ag=document.getElementById('assist-grid'); ag.innerHTML='';
+  players.forEach(p=>{
+    const b=document.createElement('button'); b.className='sc-btn'; b.textContent=pname(p);
+    b.dataset.aid=p.id;
+    b.addEventListener('click',()=>{
+      if(_selectedAssist===p.id){b.classList.remove('sel-assist');_selectedAssist=null;}
+      else{document.querySelectorAll('#assist-grid .sc-btn').forEach(x=>x.classList.remove('sel-assist'));b.classList.add('sel-assist');_selectedAssist=p.id;}
+    });
+    ag.appendChild(b);
+  });
+  // Special buttons: None, Pen, SP
+  [['Pen','pen'],['Free kick','freekick']].forEach(([label,val])=>{
+    const b=document.createElement('button'); b.className='sc-btn unk'; b.textContent=label;
+    b.addEventListener('click',()=>{
+      document.querySelectorAll('#assist-grid .sc-btn').forEach(x=>x.classList.remove('sel-assist'));
+      b.classList.add('sel-assist');
+      _selectedAssist=val;
+    });
+    ag.appendChild(b);
+  });
+}
+
+document.getElementById('scorer-ok').addEventListener('click',()=>{
+  recordGoal(_selectedScorerId, _selectedAssist);
+  close('scorer-ov');
+});
+
+function recordGoal(pid, assist){
+  const p=periodJustEnded?currentPeriod-1:currentPeriod;
+  gFor++;
+  const scorer=pid!==null&&pid!==undefined?players.find(pl=>pl.id===pid):null;
+  if(scorer)scorer.goals++;
+  // Resolve assist label
+  let assistLabel=null;
+  if(assist==='pen') assistLabel='pen';
+  else if(assist==='freekick') assistLabel='freekick';
+  else if(assist!==null&&assist!==undefined){
+    const ap=players.find(pl=>pl.id===assist);
+    if(ap) assistLabel=pname(ap);
+  }
+  gLog.push({type:'for',scorer:scorer?pname(scorer):null,sid:pid,assist:assistLabel,min:Math.max(1,Math.floor(matchSecs/60)+1),period:p});
+  updateScore();savePlayers();render();
+}
 function updateScore(){
   const us=cfg.home||'Us'; const oppo=cfg.away||'Oppo';
   document.getElementById('mit-score-line').textContent=us+' '+gFor+' – '+gAg+' '+oppo;
   document.getElementById('sc-for').textContent=gFor; document.getElementById('sc-ag').textContent=gAg;
   document.getElementById('undo-btn').disabled=!gLog.length;
   const el=document.getElementById('goals-log');
-  if(!gLog.length){el.innerHTML='<div class="g-empty">No goals yet</div>';return;}
-  el.innerHTML='';
   const oppoShort=cfg.awayShort||cfg.away||'Oppo';
-  // Group by period
-  const byPeriod={};
-  gLog.forEach(g=>{const p=g.period||1;if(!byPeriod[p])byPeriod[p]=[];byPeriod[p].push(g);});
+  if(!gLog.length&&!bkLog.length){el.innerHTML='<div class="g-empty">No goals yet</div>';return;}
+  el.innerHTML='';
   const numPeriods=cfg.periodCount||1;
   const colLabels=getPeriodCols();
-  Object.keys(byPeriod).sort((a,b)=>a-b).forEach(p=>{
-    const goals=byPeriod[p];
-    const forG=goals.filter(g=>g.type==='for'); const agG=goals.filter(g=>g.type==='ag');
-    const score=forG.length+'-'+agG.length;
-    const lbl=numPeriods>1?(colLabels[p-1]||('P'+p))+' '+score+': ':'' ;
-    const parts=goals.map(g=>{
-      const min=g.min?(' ('+g.min+"')"): '';
-      if(g.type==='for') return '<span class="g-for">'+(g.scorer||'Unknown')+min+'</span>';
-      else               return '<span class="g-ag">'+oppoShort+min+'</span>';
+
+  // ── Section 1: Goals by period ──
+  if(gLog.length){
+    const byPeriod={};
+    gLog.forEach(g=>{const p=g.period||1;if(!byPeriod[p])byPeriod[p]=[];byPeriod[p].push(g);});
+    Object.keys(byPeriod).sort((a,b)=>a-b).forEach(p=>{
+      const goals=byPeriod[p].sort((a,b)=>(a.min||0)-(b.min||0));
+      const forG=goals.filter(g=>g.type==='for'); const agG=goals.filter(g=>g.type==='ag');
+      const lbl=numPeriods>1?(colLabels[p-1]||('P'+p))+' '+forG.length+'-'+agG.length:'';
+      if(lbl){const hdr=document.createElement('div');hdr.className='g-period-hdr';hdr.textContent=lbl;el.appendChild(hdr);}
+      const parts=goals.map(g=>{
+        const min=g.min?(' ('+g.min+"')"):'';
+        if(g.type==='for') return '<span class="g-for">'+(g.scorer||'Unknown')+min+'</span>';
+        else return '<span class="g-ag">'+(g.scorer||oppoShort)+min+'</span>';
+      });
+      const row=document.createElement('div'); row.className='goal-row';
+      row.innerHTML=parts.join('<span class="g-sep">, </span>');
+      el.appendChild(row);
+    });
+  }
+
+  // ── Section 2: Assists (flat list, muted, hidden if none) ──
+  const assistGoals=gLog.filter(g=>g.assist);
+  if(assistGoals.length){
+    const div=document.createElement('div'); div.className='g-section-divider'; el.appendChild(div);
+    const hdr=document.createElement('div'); hdr.className='g-section-hdr'; hdr.textContent='Assists'; el.appendChild(hdr);
+    const parts=assistGoals.sort((a,b)=>(a.min||0)-(b.min||0)).map(g=>{
+      const min=g.min?(' ('+g.min+"')"):'';
+      const lbl=g.assist==='pen'?'Pen':g.assist==='freekick'?'Free kick':g.assist;
+      const cls=g.type==='for'?'g-ast-name ast-for':'g-ast-name ast-ag';
+      return '<span class="'+cls+'">'+lbl+min+'</span>';
     });
     const row=document.createElement('div'); row.className='goal-row';
-    row.innerHTML=(lbl?'<span class="g-min">'+lbl+'</span>':'')+parts.join('<span class="g-sep">, </span>');
+    row.innerHTML=parts.join('<span class="g-sep">, </span>');
     el.appendChild(row);
-  });
+  }
+
+  // ── Section 3: Bookings (flat list, hidden if none) ──
+  if(bkLog.length){
+    const div=document.createElement('div'); div.className='g-section-divider'; el.appendChild(div);
+    const hdr=document.createElement('div'); hdr.className='g-section-hdr'; hdr.textContent='Bookings'; el.appendChild(hdr);
+    const parts=bkLog.sort((a,b)=>(a.min||0)-(b.min||0)).map(b=>{
+      const card=b.card==='y'?'🟨':'🟥';
+      const who=b.playerName||(b.team==='oppo'?oppoShort:'Unknown');
+      const min=b.min?" ("+b.min+"')":'';
+      const cls=b.team==='us'?'g-for':'g-ag';
+      return '<span class="'+cls+'">'+card+' '+who+min+'</span>';
+    });
+    const row=document.createElement('div'); row.className='goal-row';
+    row.innerHTML=parts.join('<span class="g-sep">, </span>');
+    el.appendChild(row);
+  }
 }
 
 // ── PLAYER LIST ──────────────────────────────────────────────
@@ -1412,7 +1705,9 @@ function renderPlayerList(){
     // Name block: name + progress bar
     const block=document.createElement('div'); block.className='pl-name-block';
     const nm=document.createElement('div'); nm.className='pl-name'+(p.onPitch?'':' off');
-    nm.textContent=pname(p)+(p.goals>0?' ('+p.goals+')':'');
+    const pCards=bkLog.filter(b=>b.team==='us'&&b.pid===p.id);
+    const cardStr=pCards.map(c=>c.card==='y'?'🟨':'🟥').join('');
+    nm.textContent=pname(p)+(p.goals>0?' ('+p.goals+')':'')+(cardStr?' '+cardStr:'');
     block.appendChild(nm);
     // Progress bar — % of elapsed match time
     const track=document.createElement('div'); track.className='pl-bar-track';
@@ -1465,7 +1760,7 @@ function togglePlayer(id,on){
   }
   savePlayers(); renderPlayerList();
 }
-function render(){ renderPlayerList(); }
+function render(){ renderPlayerList(); applyBookingsVisibility(); }
 function clearSel(){}
 
 // ── PLANNER ──────────────────────────────────────────────────
@@ -1603,6 +1898,535 @@ document.getElementById('adj-save').addEventListener('click',()=>{
 });
 
 // ── EXPORT ───────────────────────────────────────────────────
+// ── BOOKINGS ─────────────────────────────────────────────────
+let _bkTeam=null,_bkCard=null,_bkPlayer=null;
+
+function buildBookingModal(){
+  _bkTeam='us'; _bkCard=null; _bkPlayer=null;
+  ['bk-team-oppo','bk-card-y','bk-card-r'].forEach(id=>document.getElementById(id).classList.remove('sel-goal'));
+  document.getElementById('bk-team-us').classList.add('sel-goal');
+  const grid=document.getElementById('bk-player-grid'); grid.innerHTML='';
+  players.forEach(p=>{
+    const b=document.createElement('button'); b.className='sc-btn'; b.textContent=pname(p);
+    b.addEventListener('click',()=>{
+      grid.querySelectorAll('.sc-btn').forEach(x=>x.classList.remove('sel-goal'));
+      b.classList.add('sel-goal'); _bkPlayer=p.id;
+    });
+    grid.appendChild(b);
+  });
+  document.getElementById('bk-player-grid').style.display='';
+  document.getElementById('bk-oppo-name').style.display='none';
+  document.getElementById('bk-oppo-name').value='';
+}
+document.getElementById('bk-team-us').addEventListener('click',()=>{
+  _bkTeam='us'; _bkPlayer=null;
+  document.getElementById('bk-player-grid').querySelectorAll('.sc-btn').forEach(x=>x.classList.remove('sel-goal'));
+  document.getElementById('bk-team-us').classList.add('sel-goal');
+  document.getElementById('bk-team-oppo').classList.remove('sel-goal');
+  document.getElementById('bk-player-grid').style.display='';
+  document.getElementById('bk-oppo-name').style.display='none';
+});
+document.getElementById('bk-team-oppo').addEventListener('click',()=>{
+  _bkTeam='oppo'; _bkPlayer=null;
+  document.getElementById('bk-team-oppo').classList.add('sel-goal');
+  document.getElementById('bk-team-us').classList.remove('sel-goal');
+  document.getElementById('bk-player-grid').style.display='none';
+  document.getElementById('bk-oppo-name').style.display='';
+});
+document.getElementById('bk-card-y').addEventListener('click',()=>{
+  _bkCard='y';
+  document.getElementById('bk-card-y').classList.add('sel-goal');
+  document.getElementById('bk-card-r').classList.remove('sel-goal');
+});
+document.getElementById('bk-card-r').addEventListener('click',()=>{
+  _bkCard='r';
+  document.getElementById('bk-card-r').classList.add('sel-goal');
+  document.getElementById('bk-card-y').classList.remove('sel-goal');
+});
+document.getElementById('bk-cancel').addEventListener('click',()=>close('booking-ov'));
+document.getElementById('bk-undo-btn').addEventListener('click',()=>{
+  if(!bkLog.length) return;
+  bkLog.pop();
+  document.getElementById('bk-undo-btn').disabled=!bkLog.length;
+  updateScore(); render();
+});
+document.getElementById('bk-ok').addEventListener('click',()=>{
+  if(!_bkTeam||!_bkCard)return;
+  const period=periodJustEnded?currentPeriod-1:currentPeriod;
+  const min=Math.max(1,Math.floor(matchSecs/60)+1);
+  let playerName=null;
+  if(_bkTeam==='us'&&_bkPlayer!==null){const pl=players.find(p=>p.id===_bkPlayer);if(pl)playerName=pname(pl);}
+  else if(_bkTeam==='oppo'){playerName=document.getElementById('bk-oppo-name').value.trim()||null;}
+  bkLog.push({team:_bkTeam,card:_bkCard,playerName,pid:_bkTeam==='us'?_bkPlayer:null,min,period});
+  document.getElementById('bk-undo-btn').disabled=!bkLog.length;
+  // Second yellow check
+  if(_bkTeam==='us'&&_bkCard==='y'&&_bkPlayer!==null){
+    const prevYellows=bkLog.filter(b=>b.team==='us'&&b.card==='y'&&b.pid===_bkPlayer&&b!==bkLog[bkLog.length-1]);
+    if(prevYellows.length>=1){
+      const pl=players.find(p=>p.id===_bkPlayer);
+      const nm=pl?pname(pl):'This player';
+      close('booking-ov');
+      updateScore(); render();
+      setTimeout(()=>{
+        document.getElementById('second-yellow-name').textContent=nm;
+        open('second-yellow-ov');
+        document.getElementById('second-yellow-yes').onclick=()=>{
+          bkLog.push({team:'us',card:'r',playerName:nm,pid:_bkPlayer,min,period});
+          close('second-yellow-ov');
+          updateScore(); render();
+        };
+        document.getElementById('second-yellow-no').onclick=()=>close('second-yellow-ov');
+      },200);
+      return;
+    }
+  }
+  close('booking-ov');
+  updateScore(); render();
+});
+function openBookingModal(){
+  buildBookingModal();
+  document.getElementById('bk-undo-btn').disabled=!bkLog.length;
+  open('booking-ov');
+}
+document.getElementById('bookings-inline-btn').addEventListener('click',openBookingModal);
+
+// ── EDIT LOG ─────────────────────────────────────────────────
+function buildEditLog(){
+  const oppoShort=cfg.awayShort||cfg.away||'Oppo';
+  const colLabels=getPeriodCols();
+  const list=document.getElementById('editlog-list');
+  list.innerHTML='';
+
+  // Build combined sorted event list
+  const events=[];
+  gLog.forEach((g,i)=>events.push({src:'goal',idx:i,period:g.period||1,min:g.min||0,data:g}));
+  bkLog.forEach((b,i)=>events.push({src:'booking',idx:i,period:b.period||1,min:b.min||0,data:b}));
+  events.sort((a,b)=>a.period!==b.period?a.period-b.period:a.min-b.min);
+
+  if(!events.length){
+    list.innerHTML='<div style="color:var(--text-muted);text-align:center;padding:16px;">No events logged yet.</div>';
+    return;
+  }
+
+  events.forEach(ev=>{
+    const d=ev.data;
+    const periodLbl=colLabels[ev.period-1]||('P'+ev.period);
+    const min=d.min?" ("+d.min+"')":'';
+    let text='';
+    if(ev.src==='goal'){
+      const scorer=d.scorer||(d.type==='for'?'Unknown':oppoShort);
+      const astLbl=d.assist==='pen'?'Pen':d.assist==='freekick'?'Free kick':d.assist;
+      const astStr=astLbl?' <span style="color:var(--text-muted);font-size:11px;font-style:italic;">('+astLbl+')</span>':'';
+      const icon='⚽';
+      const cls=d.type==='for'?'g-for':'g-ag';
+      text='<span class="'+cls+'">'+icon+' '+scorer+min+'</span>'+astStr+' <span style="color:var(--text-muted);font-size:11px;">'+periodLbl+'</span>';
+    } else {
+      const card=d.card==='y'?'🟨':'🟥';
+      const who=d.playerName||(d.team==='oppo'?oppoShort:'Unknown');
+      const cls=d.team==='us'?'g-for':'g-ag';
+      text='<span class="'+cls+'">'+card+' '+who+min+'</span> <span style="color:var(--text-muted);font-size:11px;">'+periodLbl+'</span>';
+    }
+
+    const row=document.createElement('div'); row.className='edit-log-row';
+    row.innerHTML='<div class="edit-log-text">'+text+'</div>'
+      +'<div class="edit-log-btns">'
+      +'<button class="edit-btn" data-src="'+ev.src+'" data-idx="'+ev.idx+'">✏️</button>'
+      +'<button class="del-btn" data-src="'+ev.src+'" data-idx="'+ev.idx+'">🗑️</button>'
+      +'</div>';
+    list.appendChild(row);
+  });
+
+  // Wire edit buttons
+  list.querySelectorAll('.edit-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const src=btn.dataset.src; const idx=parseInt(btn.dataset.idx);
+      openEditEvent(src,idx);
+    });
+  });
+
+  // Wire delete buttons
+  list.querySelectorAll('.del-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const src=btn.dataset.src; const idx=parseInt(btn.dataset.idx);
+      if(!confirm('Delete this event?')) return;
+      if(src==='goal'){
+        // Reverse goal tally if scorer tracked
+        const g=gLog[idx];
+        if(g.type==='for'){gFor--; const pl=players.find(p=>pname(p)===g.scorer); if(pl&&pl.goals>0)pl.goals--;}
+        else gAg--;
+        gLog.splice(idx,1);
+        savePlayers();
+      } else {
+        bkLog.splice(idx,1);
+      }
+      updateScore(); render(); buildEditLog();
+    });
+  });
+}
+
+function openEditEvent(src,idx){
+  const oppoShort=cfg.awayShort||cfg.away||'Oppo';
+  const body=document.getElementById('editevent-body');
+  body.innerHTML='';
+
+  if(src==='goal'){
+    const g=gLog[idx];
+    document.getElementById('editevent-title').textContent='✏️ Edit goal';
+
+    // Scorer section
+    const scorerLbl=document.createElement('div');
+    scorerLbl.style.cssText='font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin:12px 0 6px;';
+    scorerLbl.textContent='Scorer';
+    body.appendChild(scorerLbl);
+
+    let selectedScorer=g.scorer||null;
+    if(g.type==='for'){
+      // Player grid
+      const grid=document.createElement('div'); grid.className='scorer-grid'; body.appendChild(grid);
+      players.forEach(p=>{
+        const b=document.createElement('button'); b.className='sc-btn'; b.textContent=pname(p);
+        if(pname(p)===selectedScorer) b.classList.add('sel-goal');
+        b.addEventListener('click',()=>{grid.querySelectorAll('.sc-btn').forEach(x=>x.classList.remove('sel-goal'));b.classList.add('sel-goal');selectedScorer=pname(p);});
+        grid.appendChild(b);
+      });
+      const u=document.createElement('button'); u.className='sc-btn unk'; u.textContent='Unknown';
+      if(!selectedScorer) u.classList.add('sel-goal');
+      u.addEventListener('click',()=>{grid.querySelectorAll('.sc-btn').forEach(x=>x.classList.remove('sel-goal'));u.classList.add('sel-goal');selectedScorer=null;});
+      grid.appendChild(u);
+    } else {
+      // Free text for oppo
+      const inp=document.createElement('input'); inp.type='text'; inp.className='d-input';
+      inp.style.cssText='width:100%;font-size:14px;padding:4px 0 6px;border-bottom:1.5px solid var(--card-border);';
+      inp.value=g.scorer||oppoShort;
+      body.appendChild(inp);
+      selectedScorer=null; // will read from inp on save
+      body._scorerInp=inp;
+    }
+
+    // Assist section
+    const astLbl=document.createElement('div');
+    astLbl.style.cssText='font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin:14px 0 6px;';
+    astLbl.textContent='Assist (optional)';
+    body.appendChild(astLbl);
+
+    let selectedAssist=g.assist||null;
+    const astGrid=document.createElement('div'); astGrid.className='scorer-grid'; body.appendChild(astGrid);
+    players.forEach(p=>{
+      const b=document.createElement('button'); b.className='sc-btn'; b.textContent=pname(p);
+      if(pname(p)===selectedAssist) b.classList.add('sel-assist');
+      b.addEventListener('click',()=>{
+        if(selectedAssist===pname(p)){b.classList.remove('sel-assist');selectedAssist=null;}
+        else{astGrid.querySelectorAll('.sc-btn').forEach(x=>x.classList.remove('sel-assist'));b.classList.add('sel-assist');selectedAssist=pname(p);}
+      });
+      astGrid.appendChild(b);
+    });
+    [['Pen','pen'],['Free kick','freekick']].forEach(([lbl,val])=>{
+      const b=document.createElement('button'); b.className='sc-btn unk'; b.textContent=lbl;
+      if(selectedAssist===val) b.classList.add('sel-assist');
+      b.addEventListener('click',()=>{astGrid.querySelectorAll('.sc-btn').forEach(x=>x.classList.remove('sel-assist'));b.classList.add('sel-assist');selectedAssist=val;});
+      astGrid.appendChild(b);
+    });
+
+    document.getElementById('editevent-save').onclick=()=>{
+      // Update scorer
+      const oldScorer=g.scorer;
+      if(g.type==='for'){
+        // Adjust goal tallies
+        if(oldScorer){const op=players.find(p=>pname(p)===oldScorer);if(op&&op.goals>0)op.goals--;}
+        g.scorer=selectedScorer;
+        if(selectedScorer){const np=players.find(p=>pname(p)===selectedScorer);if(np)np.goals++;}
+      } else {
+        g.scorer=body._scorerInp?body._scorerInp.value.trim()||oppoShort:selectedScorer;
+      }
+      g.assist=selectedAssist;
+      savePlayers(); updateScore(); render(); buildEditLog();
+      close('editevent-ov');
+    };
+
+  } else {
+    // Booking edit
+    const b=bkLog[idx];
+    document.getElementById('editevent-title').textContent='✏️ Edit booking';
+
+    const nameLbl=document.createElement('div');
+    nameLbl.style.cssText='font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin:12px 0 6px;';
+    nameLbl.textContent='Player';
+    body.appendChild(nameLbl);
+
+    let selectedPlayer=b.pid;
+    if(b.team==='us'){
+      const grid=document.createElement('div'); grid.className='scorer-grid'; body.appendChild(grid);
+      players.forEach(p=>{
+        const btn=document.createElement('button'); btn.className='sc-btn'; btn.textContent=pname(p);
+        if(p.id===selectedPlayer) btn.classList.add('sel-goal');
+        btn.addEventListener('click',()=>{grid.querySelectorAll('.sc-btn').forEach(x=>x.classList.remove('sel-goal'));btn.classList.add('sel-goal');selectedPlayer=p.id;});
+        grid.appendChild(btn);
+      });
+    } else {
+      const inp=document.createElement('input'); inp.type='text'; inp.className='d-input';
+      inp.style.cssText='width:100%;font-size:14px;padding:4px 0 6px;border-bottom:1.5px solid var(--card-border);';
+      inp.value=b.playerName||'';
+      body.appendChild(inp);
+      body._nameInp=inp;
+    }
+
+    // Card type
+    const cardLbl=document.createElement('div');
+    cardLbl.style.cssText='font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin:14px 0 6px;';
+    cardLbl.textContent='Card';
+    body.appendChild(cardLbl);
+    let selectedCard=b.card;
+    const cardRow=document.createElement('div'); cardRow.style.cssText='display:flex;gap:8px;'; body.appendChild(cardRow);
+    [['🟨 Yellow','y'],['🟥 Red','r']].forEach(([lbl,val])=>{
+      const btn=document.createElement('button'); btn.className='sc-btn'+(val===selectedCard?' sel-goal':'');
+      btn.textContent=lbl;
+      btn.addEventListener('click',()=>{cardRow.querySelectorAll('.sc-btn').forEach(x=>x.classList.remove('sel-goal'));btn.classList.add('sel-goal');selectedCard=val;});
+      cardRow.appendChild(btn);
+    });
+
+    document.getElementById('editevent-save').onclick=()=>{
+      b.card=selectedCard;
+      if(b.team==='us'){
+        b.pid=selectedPlayer;
+        const pl=players.find(p=>p.id===selectedPlayer);
+        b.playerName=pl?pname(pl):null;
+      } else {
+        b.playerName=body._nameInp?body._nameInp.value.trim()||null:b.playerName;
+      }
+      updateScore(); render(); buildEditLog();
+      close('editevent-ov');
+    };
+  }
+
+  open('editevent-ov');
+}
+
+document.getElementById('editlog-btn').addEventListener('click',()=>{buildEditLog();open('editlog-ov');});
+
+function applyBookingsVisibility(){
+  const show=!!cfg.hasBookings;
+  document.getElementById('bookings-inline-btn').style.display=show?'':'none';
+}
+document.getElementById('editlog-close').addEventListener('click',()=>close('editlog-ov'));
+document.getElementById('add-goal-btn').addEventListener('click',()=>openAddEvent('goal'));
+document.getElementById('add-booking-btn').addEventListener('click',()=>openAddEvent('booking'));
+
+function makePeriodSelect(selectedPeriod){
+  const colLabels=getPeriodCols();
+  const wrap=document.createElement('div');
+  wrap.style.cssText='margin:12px 0 6px;';
+  const lbl=document.createElement('div');
+  lbl.style.cssText='font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;';
+  lbl.textContent='Period';
+  wrap.appendChild(lbl);
+  const sel=document.createElement('select');
+  sel.className='formation-select'; sel.style.cssText='width:100%;';
+  for(let i=1;i<=(cfg.periodCount||1);i++){
+    const opt=document.createElement('option');
+    opt.value=i; opt.textContent=colLabels[i-1]||('P'+i);
+    if(i===selectedPeriod) opt.selected=true;
+    sel.appendChild(opt);
+  }
+  wrap.appendChild(sel);
+  wrap._sel=sel;
+  return wrap;
+}
+
+function makeMinuteInput(val){
+  const wrap=document.createElement('div');
+  wrap.style.cssText='margin:12px 0 6px;';
+  const lbl=document.createElement('div');
+  lbl.style.cssText='font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;';
+  lbl.textContent="Minute (optional)";
+  wrap.appendChild(lbl);
+  const inp=document.createElement('input');
+  inp.type='text'; inp.inputMode='numeric'; inp.className='d-input';
+  inp.style.cssText='width:100%;font-size:14px;padding:4px 0 6px;border-bottom:1.5px solid var(--card-border);';
+  inp.placeholder='e.g. 23'; inp.value=val||'';
+  wrap.appendChild(inp);
+  wrap._inp=inp;
+  return wrap;
+}
+
+function makeTeamRow(selectedTeam, onchange){
+  const wrap=document.createElement('div');
+  wrap.style.cssText='margin:12px 0 6px;';
+  const lbl=document.createElement('div');
+  lbl.style.cssText='font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;';
+  lbl.textContent='Team';
+  wrap.appendChild(lbl);
+  const row=document.createElement('div'); row.style.cssText='display:flex;gap:8px;';
+  ['us','oppo'].forEach(val=>{
+    const b=document.createElement('button');
+    b.className='sc-btn'+(val===selectedTeam?' sel-goal':'');
+    b.textContent=val==='us'?(cfg.homeShort||cfg.home||'Us'):(cfg.awayShort||cfg.away||'Oppo');
+    b.addEventListener('click',()=>{
+      row.querySelectorAll('.sc-btn').forEach(x=>x.classList.remove('sel-goal'));
+      b.classList.add('sel-goal');
+      if(onchange) onchange(val);
+    });
+    row.appendChild(b);
+  });
+  wrap.appendChild(row);
+  wrap._row=row;
+  return wrap;
+}
+
+function openAddEvent(type){
+  const oppoShort=cfg.awayShort||cfg.away||'Oppo';
+  const body=document.getElementById('editevent-body');
+  body.innerHTML='';
+  document.getElementById('editevent-title').textContent=type==='goal'?'+ Add goal':'+ Add booking';
+
+  // Period
+  const periodWrap=makePeriodSelect(currentPeriod||1);
+  body.appendChild(periodWrap);
+
+  // Minute
+  const minWrap=makeMinuteInput('');
+  body.appendChild(minWrap);
+
+  if(type==='goal'){
+    let selectedTeam='us';
+    let selectedScorer=null;
+    let selectedAssist=null;
+
+    // Scorer section (rebuilt on team change)
+    const teamWrap=makeTeamRow('us',(val)=>{selectedTeam=val;selectedScorer=null;selectedAssist=null;buildScorerSection();});
+    body.appendChild(teamWrap);
+
+    const scorerSection=document.createElement('div');
+    body.appendChild(scorerSection);
+
+    function buildScorerSection(){
+      scorerSection.innerHTML='';
+      const sLbl=document.createElement('div');
+      sLbl.style.cssText='font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin:12px 0 6px;';
+      sLbl.textContent='Scorer';
+      scorerSection.appendChild(sLbl);
+      if(selectedTeam==='us'){
+        const grid=document.createElement('div'); grid.className='scorer-grid'; scorerSection.appendChild(grid);
+        players.forEach(p=>{
+          const b=document.createElement('button'); b.className='sc-btn'; b.textContent=pname(p);
+          b.addEventListener('click',()=>{grid.querySelectorAll('.sc-btn').forEach(x=>x.classList.remove('sel-goal'));b.classList.add('sel-goal');selectedScorer=pname(p);});
+          grid.appendChild(b);
+        });
+        const u=document.createElement('button'); u.className='sc-btn unk'; u.textContent='Unknown';
+        u.addEventListener('click',()=>{grid.querySelectorAll('.sc-btn').forEach(x=>x.classList.remove('sel-goal'));u.classList.add('sel-goal');selectedScorer=null;});
+        grid.appendChild(u);
+        // Assist section
+        const aLbl=document.createElement('div');
+        aLbl.style.cssText='font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin:14px 0 6px;';
+        aLbl.textContent='Assist (optional)';
+        scorerSection.appendChild(aLbl);
+        const astGrid=document.createElement('div'); astGrid.className='scorer-grid'; scorerSection.appendChild(astGrid);
+        players.forEach(p=>{
+          const b=document.createElement('button'); b.className='sc-btn'; b.textContent=pname(p);
+          b.addEventListener('click',()=>{
+        if(selectedAssist===pname(p)){b.classList.remove('sel-assist');selectedAssist=null;}
+        else{astGrid.querySelectorAll('.sc-btn').forEach(x=>x.classList.remove('sel-assist'));b.classList.add('sel-assist');selectedAssist=pname(p);}
+      });
+          astGrid.appendChild(b);
+        });
+        [['Pen','pen'],['Free kick','freekick']].forEach(([lbl,val])=>{
+          const b=document.createElement('button'); b.className='sc-btn unk'; b.textContent=lbl;
+          b.addEventListener('click',()=>{astGrid.querySelectorAll('.sc-btn').forEach(x=>x.classList.remove('sel-assist'));b.classList.add('sel-assist');selectedAssist=val;});
+          astGrid.appendChild(b);
+        });
+      } else {
+        const inp=document.createElement('input'); inp.type='text'; inp.className='d-input';
+        inp.style.cssText='width:100%;font-size:14px;padding:4px 0 6px;border-bottom:1.5px solid var(--card-border);';
+        inp.placeholder=oppoShort;
+        scorerSection.appendChild(inp);
+        scorerSection._scorerInp=inp;
+        selectedAssist=null;
+      }
+    }
+
+    buildScorerSection();
+
+    document.getElementById('editevent-save').onclick=()=>{
+      const period=parseInt(periodWrap._sel.value)||1;
+      const min=parseInt(minWrap._inp.value)||0;
+      const type2=selectedTeam==='us'?'for':'ag';
+      let scorer=selectedScorer;
+      if(selectedTeam==='oppo'&&scorerSection._scorerInp) scorer=scorerSection._scorerInp.value.trim()||oppoShort;
+      // Update counters and player goals
+      if(type2==='for'){gFor++; if(scorer){const pl=players.find(p=>pname(p)===scorer);if(pl)pl.goals++;}}
+      else gAg++;
+      gLog.push({type:type2,scorer,sid:null,assist:selectedAssist,min:min||null,period});
+      savePlayers(); updateScore(); render(); buildEditLog();
+      close('editevent-ov');
+    };
+
+  } else {
+    // Add booking
+    let selectedTeam='us';
+    let selectedCard='y';
+    let selectedPlayer=null;
+
+    const teamWrap=makeTeamRow('us',(val)=>{selectedTeam=val;selectedPlayer=null;buildPlayerSection();});
+    body.appendChild(teamWrap);
+
+    const playerSection=document.createElement('div');
+    body.appendChild(playerSection);
+
+    function buildPlayerSection(){
+      playerSection.innerHTML='';
+      const pLbl=document.createElement('div');
+      pLbl.style.cssText='font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin:12px 0 6px;';
+      pLbl.textContent='Player (optional)';
+      playerSection.appendChild(pLbl);
+      if(selectedTeam==='us'){
+        const grid=document.createElement('div'); grid.className='scorer-grid'; playerSection.appendChild(grid);
+        players.forEach(p=>{
+          const b=document.createElement('button'); b.className='sc-btn'; b.textContent=pname(p);
+          b.addEventListener('click',()=>{grid.querySelectorAll('.sc-btn').forEach(x=>x.classList.remove('sel-goal'));b.classList.add('sel-goal');selectedPlayer=p.id;});
+          grid.appendChild(b);
+        });
+      } else {
+        const inp=document.createElement('input'); inp.type='text'; inp.className='d-input';
+        inp.style.cssText='width:100%;font-size:14px;padding:4px 0 6px;border-bottom:1.5px solid var(--card-border);';
+        inp.placeholder='Player name (optional)';
+        playerSection.appendChild(inp);
+        playerSection._nameInp=inp;
+        selectedPlayer=null;
+      }
+      // Card
+      const cLbl=document.createElement('div');
+      cLbl.style.cssText='font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin:14px 0 6px;';
+      cLbl.textContent='Card';
+      playerSection.appendChild(cLbl);
+      const cardRow=document.createElement('div'); cardRow.style.cssText='display:flex;gap:8px;'; playerSection.appendChild(cardRow);
+      [['🟨 Yellow','y'],['🟥 Red','r']].forEach(([lbl,val])=>{
+        const b=document.createElement('button'); b.className='sc-btn'+(val===selectedCard?' sel-goal':'');
+        b.textContent=lbl;
+        b.addEventListener('click',()=>{cardRow.querySelectorAll('.sc-btn').forEach(x=>x.classList.remove('sel-goal'));b.classList.add('sel-goal');selectedCard=val;});
+        cardRow.appendChild(b);
+      });
+    }
+
+    buildPlayerSection();
+
+    document.getElementById('editevent-save').onclick=()=>{
+      const period=parseInt(periodWrap._sel.value)||1;
+      const min=parseInt(minWrap._inp.value)||0;
+      let playerName=null; let pid=null;
+      if(selectedTeam==='us'&&selectedPlayer!==null){
+        const pl=players.find(p=>p.id===selectedPlayer); if(pl){playerName=pname(pl);pid=pl.id;}
+      } else if(selectedTeam==='oppo'&&playerSection._nameInp){
+        playerName=playerSection._nameInp.value.trim()||null;
+      }
+      bkLog.push({team:selectedTeam,card:selectedCard,playerName,pid,min:min||null,period});
+      updateScore(); render(); buildEditLog();
+      close('editevent-ov');
+    };
+  }
+
+  open('editevent-ov');
+}
+document.getElementById('editevent-cancel').addEventListener('click',()=>close('editevent-ov'));
+
 function buildExport(){
   const us=cfg.home||'Us'; const oppo=cfg.away||'Oppo'; const date=cfg.date||''; const loc=cfg.location||'';
   const L=['PLAYFAIR — MATCH SUMMARY','=============================='];
@@ -1610,27 +2434,64 @@ function buildExport(){
   L.push('Us:       '+us); L.push('Oppo:     '+oppo);
   L.push('Format:   '+cfg.team+'-a-side · '+getPeriodConfig().total+' period(s)','');
   L.push('RESULT',us+' '+gFor+' – '+gAg+' '+oppo,'');
-  if(gLog.length){
-    const oppoSh=cfg.awayShort||oppo;
-    const colLabels=getPeriodCols(); const numPeriods=cfg.periodCount||1;
-    const byPeriod={};
-    gLog.forEach(g=>{const p=g.period||1;if(!byPeriod[p])byPeriod[p]=[];byPeriod[p].push(g);});
-    L.push('GOALS');
-    Object.keys(byPeriod).sort((a,b)=>a-b).forEach(p=>{
-      const goals=byPeriod[p];
-      const forG=goals.filter(g=>g.type==='for'); const agG=goals.filter(g=>g.type==='ag');
-      const lbl=numPeriods>1?(colLabels[p-1]||('P'+p))+' ('+forG.length+'-'+agG.length+'): ':'' ;
-      const parts=[];
-      if(forG.length)parts.push(us+': '+forG.map(g=>(g.scorer||'Unknown')+(g.min?" ("+g.min+"')":'') ).join(', '));
-      if(agG.length)parts.push(oppoSh+': '+agG.length+' goal'+(agG.length>1?'s':''));
-      L.push('  '+lbl+parts.join(' | '));
+  const oppoSh=cfg.awayShort||oppo;
+  const colLabels=getPeriodCols(); const numPeriods=cfg.periodCount||1;
+  const allExportEvents=[];
+  gLog.forEach(g=>allExportEvents.push({...g,eType:'goal'}));
+  bkLog.forEach(b=>allExportEvents.push({...b,eType:'booking'}));
+  if(allExportEvents.length){
+    const evByPeriod={};
+    allExportEvents.forEach(e=>{const p=e.period||1;if(!evByPeriod[p])evByPeriod[p]=[];evByPeriod[p].push(e);});
+    L.push('GOALS & BOOKINGS');
+    Object.keys(evByPeriod).sort((a,b)=>a-b).forEach(p=>{
+      const events=evByPeriod[p].sort((a,b)=>(a.min||0)-(b.min||0));
+      const forG=events.filter(e=>e.eType==='goal'&&e.type==='for');
+      const agG=events.filter(e=>e.eType==='goal'&&e.type==='ag');
+      if(numPeriods>1)L.push('  '+(colLabels[p-1]||('P'+p))+' ('+forG.length+'-'+agG.length+'):');
+      events.forEach(e=>{
+        if(e.eType==='goal'){
+          const side=e.type==='for'?us:oppoSh;
+          const who=e.scorer||(e.type==='for'?'Unknown':oppoSh);
+          const min=e.min?" ("+e.min+"')":'';
+          let ast='';
+          if(e.assist==='pen') ast=' (pen)';
+          else if(e.assist==='freekick') ast=' (Free kick)';
+          else if(e.assist) ast=' ('+e.assist+')';
+          L.push('    ⚽ '+side+': '+who+min+ast);
+        } else {
+          const card=e.card==='y'?'YC':'RC';
+          const side=e.team==='us'?us:oppoSh;
+          const who=e.playerName||(e.team==='oppo'?oppoSh:'Unknown');
+          const min=e.min?" ("+e.min+"')":'';
+          L.push('    '+card+' '+side+': '+who+min);
+        }
+      });
     });
     L.push('');
   }
   const SC='|'; const W=8;
-  L.push('PLAYER TIMES',padC('Player',14)+SC+padC('Time On',W)+SC+padC('Goals',6),'-'.repeat(14+1+(W+1)+7));
+  // Derive assists and cards per player from logs
+  const assistCounts={};
+  gLog.forEach(g=>{
+    if(g.type==='for'&&g.assist&&typeof g.assist==='number'){
+      assistCounts[g.assist]=(assistCounts[g.assist]||0)+1;
+    } else if(g.type==='for'&&g.assist&&typeof g.assist==='string'&&g.assist!=='pen'&&g.assist!=='freekick'){
+      // assist stored as name — match by name
+      const ap=players.find(p=>pname(p)===g.assist);
+      if(ap) assistCounts[ap.id]=(assistCounts[ap.id]||0)+1;
+    }
+  });
+  const ycCounts={},rcCounts={};
+  bkLog.filter(b=>b.team==='us'&&b.pid!==null).forEach(b=>{
+    if(b.card==='y') ycCounts[b.pid]=(ycCounts[b.pid]||0)+1;
+    else rcCounts[b.pid]=(rcCounts[b.pid]||0)+1;
+  });
+  L.push('PLAYER TIMES',padC('Player',14)+SC+padC('Time On',W)+SC+padC('Goals',6)+SC+padC('Assists',8)+SC+padC('YC',4)+SC+padC('RC',4),'-'.repeat(14+1+(W+1)+7+1+9+1+5+1+5));
   [...players].sort((a,b)=>a.id-b.id).forEach(p=>{
-    L.push(padC(pname(p),14)+SC+padC(p.seconds>0?fmtMins(p.seconds):'—',W)+SC+padC(p.goals>0?String(p.goals):'—',6));
+    const ast=assistCounts[p.id]||0;
+    const yc=ycCounts[p.id]||0;
+    const rc=rcCounts[p.id]||0;
+    L.push(padC(pname(p),14)+SC+padC(p.seconds>0?fmtMins(p.seconds):'—',W)+SC+padC(p.goals>0?String(p.goals):'—',6)+SC+padC(ast>0?String(ast):'—',8)+SC+padC(yc>0?String(yc):'—',4)+SC+padC(rc>0?String(rc):'—',4));
   });
   L.push('','MATCH PLANNER');
   const ph=pad('Player',14)+periodCols.map(c=>pad(c,8)).join(''); L.push(ph,'-'.repeat(ph.length));
@@ -1654,7 +2515,7 @@ document.getElementById('reset-cancel').addEventListener('click',()=>close('rese
 document.getElementById('reset-ok').addEventListener('click',()=>{
   // Stop all timers
   clearInterval(masterTimer); masterTimer=null; masterStartTime=null;
-  matchSecs=0; playing=false; gFor=0; gAg=0; gLog=[];
+  matchSecs=0; playing=false; gFor=0; gAg=0; gLog=[]; bkLog=[];
   currentPeriod=1; matchComplete=false; periodJustEnded=false;
   cfg.savedPlayers=[]; cfg.savedMatch=null;
   // Rebuild players array from scratch, keeping names only
@@ -1739,34 +2600,65 @@ function buildScoresheetHtml(logoSrc){
   const colLabels = getPeriodCols();
   const numPeriods = cfg.periodCount || 1;
 
+  // Goals by period
   let goalsHtml = '';
   if(gLog.length===0){
     goalsHtml='<div style="color:#ccc;font-size:13px;">No goals scored</div>';
   } else {
-    // Group by period, same logic as the app
     const byPeriod = {};
     gLog.forEach(g=>{ const p=g.period||1; if(!byPeriod[p])byPeriod[p]=[]; byPeriod[p].push(g); });
     Object.keys(byPeriod).sort((a,b)=>a-b).forEach(p=>{
-      const goals = byPeriod[p];
+      const goals = byPeriod[p].sort((a,b)=>(a.min||0)-(b.min||0));
       const forG = goals.filter(g=>g.type==='for');
       const agG  = goals.filter(g=>g.type==='ag');
       const score = forG.length+'-'+agG.length;
-      const lbl = numPeriods>1 ? (colLabels[p-1]||('P'+p))+' '+score+': ' : '';
+      const lbl = numPeriods>1 ? (colLabels[p-1]||('P'+p))+' '+score : '';
       const parts = goals.map(g=>{
         const min = g.min ? ` (${g.min}')` : '';
         if(g.type==='for') return `<span style="color:#3B6D11;font-weight:600;">${g.scorer||'Unknown'}${min}</span>`;
-        else               return `<span style="color:#A32D2D;font-weight:600;">${oppoShort}${min}</span>`;
+        else               return `<span style="color:#A32D2D;font-weight:600;">${g.scorer||oppoShort}${min}</span>`;
       });
-      goalsHtml += `<div style="padding:4px 0;border-bottom:0.5px solid #f0f0f0;font-size:12px;line-height:1.6;">${lbl?`<span style="color:#bbb;">${lbl}</span>`:''}${parts.join('<span style="color:#bbb;">, </span>')}</div>`;
+      goalsHtml += `<div style="padding:3px 0;font-size:12px;line-height:1.6;">${lbl?`<span style="color:#999;font-weight:600;">${lbl}: </span>`:''}${parts.join('<span style="color:#bbb;">, </span>')}</div>`;
     });
   }
 
+  // Assists
+  const assistGoals = gLog.filter(g=>g.assist);
+  let assistsHtml = '';
+  if(assistGoals.length){
+    const parts = assistGoals.sort((a,b)=>(a.min||0)-(b.min||0)).map(g=>{
+      const min = g.min ? ` (${g.min}')` : '';
+      const col = g.type==='for'?'#3B6D11':'#A32D2D';
+      const astLbl=g.assist==='pen'?'Pen':g.assist==='freekick'?'Free kick':g.assist;
+      return `<span style="color:${col};font-style:italic;font-size:11px;">${astLbl}${min}</span>`;
+    });
+    assistsHtml = `<div style="border-top:0.5px solid #f0f0f0;margin-top:8px;padding-top:8px;">
+      <div style="font-size:10px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;">Assists</div>
+      <div style="font-size:12px;line-height:1.6;">${parts.join('<span style="color:#bbb;">, </span>')}</div>
+    </div>`;
+  }
+
+  // Bookings
+  let bookingsHtml = '';
+  if(bkLog.length){
+    const parts = bkLog.sort((a,b)=>(a.min||0)-(b.min||0)).map(b=>{
+      const card = b.card==='y'?'🟨':'🟥';
+      const who = b.playerName||(b.team==='oppo'?oppoShort:'Unknown');
+      const min = b.min ? ` (${b.min}')` : '';
+      const col = b.team==='us'?'#3B6D11':'#A32D2D';
+      return `<span style="color:${col};font-size:12px;">${card} ${who}${min}</span>`;
+    });
+    bookingsHtml = `<div style="border-top:0.5px solid #f0f0f0;margin-top:8px;padding-top:8px;">
+      <div style="font-size:10px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;">Bookings</div>
+      <div style="font-size:12px;line-height:1.6;">${parts.join('<span style="color:#bbb;">, </span>')}</div>
+    </div>`;
+  }
+
   return `
-    <div style="background:#1e7d34;border-radius:12px;padding:12px 14px;margin-bottom:12px;display:flex;align-items:center;justify-content:center;gap:12px;">
+    <div style="background:#2d6a4f;border-radius:12px;padding:12px 14px;margin-bottom:12px;display:flex;align-items:center;justify-content:center;gap:12px;">
       <img src="${logoSrc}" style="height:44px;width:44px;border-radius:8px;object-fit:cover;flex-shrink:0;">
       <div style="text-align:center;">
-        <div style="font-size:22px;font-weight:800;color:#fff;">Playfair</div>
-        <div style="font-size:11px;color:rgba(255,255,255,0.75);font-style:italic;">Fair time for every player</div>
+        <div style="font-size:22px;font-weight:800;color:#fff;">Playfair.coach</div>
       </div>
     </div>
     <div style="background:#fff;border:0.5px solid #e0e0e0;border-radius:12px;padding:16px;margin-bottom:8px;">
@@ -1777,8 +2669,10 @@ function buildScoresheetHtml(logoSrc){
         <div style="font-size:28px;font-weight:700;color:#ccc;">–</div>
         <div style="text-align:center;"><div style="font-size:42px;font-weight:800;color:#A32D2D;">${gAg}</div><div style="font-size:12px;color:#888;margin-top:2px;">${oppo}</div></div>
       </div>
-      <div style="font-size:12px;font-weight:700;color:#555;margin-bottom:8px;">⚽ Goalscorers</div>
+      <div style="font-size:12px;font-weight:700;color:#555;margin-bottom:6px;">⚽ Goals</div>
       ${goalsHtml}
+      ${assistsHtml}
+      ${bookingsHtml}
     </div>`;
 }
 
@@ -1789,7 +2683,7 @@ document.getElementById('ss-scoresheet').addEventListener('click',()=>{
   const wrap = document.createElement('div');
   wrap.style.cssText='position:fixed;left:-9999px;top:0;width:380px;background:#f2f2f7;padding:12px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;';
   wrap.innerHTML = buildScoresheetHtml(logoSrc) +
-    `<div style="text-align:center;padding:8px 0 4px;font-size:11px;color:#aaa;">Powered by playfair.coach</div>`;
+    `<div style="text-align:center;padding:8px 0 4px;font-size:11px;color:#aaa;">Shared via <span style="color:#1a73e8;">www.playfair.coach</span> — fair time for every player</div>`;
   document.body.appendChild(wrap);
   doCapture(wrap,'scoresheet').then(()=>{ document.body.removeChild(wrap); });
 });
@@ -1871,7 +2765,7 @@ document.getElementById('ss-coaches').addEventListener('click',()=>{
   if(notesHtml) wrap.insertAdjacentHTML('beforeend', notesHtml);
 
   wrap.insertAdjacentHTML('beforeend',
-    `<div style="text-align:center;padding:8px 0 4px;font-size:11px;color:#aaa;">Powered by playfair.coach</div>`);
+    `<div style="text-align:center;padding:8px 0 4px;font-size:11px;color:#aaa;">Shared via <span style="color:#1a73e8;">www.playfair.coach</span> — fair time for every player</div>`);
 
   document.body.appendChild(wrap);
   doCapture(wrap,'coaches-view').then(()=>{ document.body.removeChild(wrap); });
