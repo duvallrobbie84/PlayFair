@@ -145,7 +145,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       "name": "Is there an app?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Not yet. At present Playfair is only available online through your mobile or desktop browser. You can add it to your home screen for quick access — it works just like an app from there."
+        "text": "Playfair is a web app first and foremost — nothing to download, nothing to install. That said, it's built as a Progressive Web App (PWA), which means regular users can install it to their home screen and it'll look and feel just like a native app. In Chrome, tap the three-dot menu and select 'Install app' (or 'Add to Home Screen'). On iPhone in Safari, tap the share icon and choose 'Add to Home Screen'."
       }
     },
     {
@@ -232,24 +232,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   <div class="card">
     <div class="card-label">About</div>
     <h2>What is Playfair?</h2>
-    <p>Playfair is a lightweight, mobile-friendly web app designed for any team sport coach or manager. It runs entirely in your browser — no sign-up, no downloads, no fuss.</p>
-    <p>At its heart it solves one problem every coach faces: making sure every player gets a fair share of time on the pitch. Whether you're managing a kids' team or adults, football, rugby, hockey or any other team sport — Playfair tracks each player's minutes in real time, flags who's falling behind, and helps you plan rotations before kick-off.</p>
+    <p>Playfair is a lightweight, mobile-friendly web app designed for grassroots sports managers. It runs entirely in your browser — no sign-up, no downloads, no fuss.</p>
+    <p>The app helps to ensure every player gets a fair share of time on the pitch — Playfair tracks each player's minutes in real time, flags who's falling behind, and helps you plan rotations before kick-off.</p>
     <p>Everything is saved locally on your device between sessions, so your squad names and match planner are always ready when you need them.</p>
-  </div>
-
-  <div class="card">
-    <div class="card-label">User Guide</div>
-    <h2 class="guide-toggle" onclick="toggleVideo()" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;">
-      See it in action — video
-      <span id="video-chevron" style="font-size:14px;color:var(--green-dark);font-family:'DM Sans',sans-serif;font-weight:600;margin-left:12px;transition:transform 0.2s;">▼ Show</span>
-    </h2>
-    <div id="video-content" style="display:none;padding-top:8px;">
-      <p style="margin:0 0 12px;">Watch a walkthrough of Playfair on YouTube — see how to set up your squad, track playing time live, and export your match summary.</p>
-      <a href="https://www.youtube.com/@Playfaircoach" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:#ff0000;color:#fff;font-weight:700;font-size:15px;padding:11px 20px;border-radius:10px;text-decoration:none;">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8z"/><polygon fill="red" points="9.75,15.02 15.5,12 9.75,8.98"/><polygon fill="white" points="9.75,15.02 15.5,12 9.75,8.98"/></svg>
-        Watch on YouTube
-      </a>
-    </div>
   </div>
 
   <div class="card">
@@ -291,14 +276,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
         <div class="step-num">5</div>
         <div class="step-body">
           <div class="step-title">Watch for the fairness alert</div>
-          <div class="step-desc">If any player falls more than 2 minutes behind full match time, a banner appears at the top of the player list — telling you who needs game time and by how much.</div>
+          <div class="step-desc">If any player falls behind, a banner appears at the top of the player list — telling you who needs game time and by how much. You can set the threshold in Settings.</div>
         </div>
       </li>
       <li>
         <div class="step-num">6</div>
         <div class="step-body">
-          <div class="step-title">Log goals</div>
-          <div class="step-desc">Tap "For us" or "Concede" to record goals. Select the scorer and the minute is captured automatically. Goal tallies appear in brackets next to each player's name. You can undo the last goal if needed.</div>
+          <div class="step-title">Log goals and bookings</div>
+          <div class="step-desc">Tap "For us" or "Concede" to record goals. Select the scorer and the minute is captured automatically. Yellow and red cards can also be logged against individual players. Goal and booking tallies appear in brackets next to each player's name. You can undo the last goal if needed.</div>
         </div>
       </li>
       <li>
@@ -320,11 +305,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     <div id="faq-items" style="display:none;">
       <div style="padding:12px 0;border-bottom:0.5px solid #f0f0f0;">
         <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px;">Why is Playfair free?</div>
-        <div style="font-size:13px;color:var(--muted);line-height:1.6;">Because I feel passionately about ensuring fairness in grassroot sport. Every child and player deserves equal opportunity on the pitch, and cost shouldn't be a barrier to making that happen.</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.6;">Because we feel passionately about ensuring fairness in grassroots sport. Every child and player deserves equal opportunity on the pitch, and cost shouldn't be a barrier to making that happen.</div>
       </div>
       <div style="padding:12px 0;border-bottom:0.5px solid #f0f0f0;">
         <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px;">Is there an app?</div>
-        <div style="font-size:13px;color:var(--muted);line-height:1.6;">Not yet. At present Playfair is only available online through your mobile or desktop browser. You can add it to your home screen for quick access — it works just like an app from there.</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.6;">Playfair is a web app first and foremost — nothing to download, nothing to install. That said, it's built as a Progressive Web App (PWA), which means regular users can install it to their home screen and it'll look and feel just like a native app. In Chrome, tap the three-dot menu and select 'Install app' (or 'Add to Home Screen'). On iPhone in Safari, tap the share icon and choose 'Add to Home Screen'.</div>
       </div>
       <div style="padding:12px 0;border-bottom:0.5px solid #f0f0f0;">
         <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px;">Do I have to start from scratch every time?</div>
@@ -347,16 +332,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
         <div style="font-size:13px;color:var(--muted);line-height:1.6;">No. Everything you enter stays on your own device — Playfair doesn't send your squad names or match data anywhere. There are no accounts, no servers storing your information.</div>
       </div>
       <div style="padding:12px 0;border-bottom:0.5px solid #f0f0f0;">
-        <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px;">How do I add it to my home screen?</div>
-        <div style="font-size:13px;color:var(--muted);line-height:1.6;">On iPhone, open Playfair in Safari, tap the share icon and select 'Add to Home Screen'. On Android, open it in Chrome, tap the three-dot menu and select 'Add to Home Screen'. It'll appear as an icon just like a regular app.</div>
-      </div>
-      <div style="padding:12px 0;border-bottom:0.5px solid #f0f0f0;">
         <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px;">What happens if my phone screen locks mid-match?</div>
         <div style="font-size:13px;color:var(--muted);line-height:1.6;">Nothing to worry about — the timer keeps running in the background even if your screen locks. Just unlock your phone and you'll find everything exactly as you left it.</div>
       </div>
       <div style="padding:12px 0;">
         <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px;">Can I track individual goal tallies for the season?</div>
-        <div style="font-size:13px;color:var(--muted);line-height:1.6;">Not currently — Playfair is built for match day, so goal tallies reset with each new match. It's a great idea though, and season-level stats is something we're thinking about for the future. If it's important to you, drop us an email — hearing it from coaches helps us prioritise.</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.6;">Playfair is intentionally focused on one thing: in-match fairness. There are great team management apps out there for tracking season stats, player development and the rest — we're not trying to replace them. Most managers we know are volunteers just trying to give the kids a good game, and the last thing they need is another system to maintain. So we've kept Playfair simple and match-day only — and that's where our focus will stay.</div>
       </div>
     </div>
   </div>
@@ -374,9 +355,19 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     </a>
   </div>
 
-  <div class="feedback">
-    <p>Thank you for using <strong>Playfair</strong>. It's built by a coach, for coaches — so every piece of feedback genuinely shapes where it goes next. Whether it's a bug, a missing feature, or just a thought, <strong>please do get in touch</strong>.</p>
-    <a href="mailto:hello@playfair.coach">Send feedback →</a>
+  <div class="card">
+    <div class="card-label">User Guide</div>
+    <h2 class="guide-toggle" onclick="toggleVideo()" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;">
+      See it in action — video
+      <span id="video-chevron" style="font-size:14px;color:var(--green-dark);font-family:'DM Sans',sans-serif;font-weight:600;margin-left:12px;transition:transform 0.2s;">▼ Show</span>
+    </h2>
+    <div id="video-content" style="display:none;padding-top:8px;">
+      <p style="margin:0 0 12px;">Watch a walkthrough of Playfair on YouTube — see how to set up your squad, track playing time live, and export your match summary.</p>
+      <a href="https://www.youtube.com/@Playfaircoach" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:#ff0000;color:#fff;font-weight:700;font-size:15px;padding:11px 20px;border-radius:10px;text-decoration:none;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8z"/><polygon fill="red" points="9.75,15.02 15.5,12 9.75,8.98"/><polygon fill="white" points="9.75,15.02 15.5,12 9.75,8.98"/></svg>
+        Watch on YouTube
+      </a>
+    </div>
   </div>
 
   <div class="back-bar">
