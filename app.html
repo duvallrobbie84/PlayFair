@@ -488,6 +488,16 @@ input:checked + .toggle-slider:before { transform: translateX(20px); }
 .exp-email { background: var(--green-pale) !important; color: var(--green) !important; border-color: var(--green-mid) !important; }
 .exp-fb { font-size: 12px; color: var(--green); text-align: center; margin-top: 6px; min-height: 16px; }
 
+/* ── SELECT ALL / UNSELECT ALL ── */
+.pl-bulk-btns { display: flex; gap: 6px; }
+.pl-bulk-btn {
+  padding: 4px 10px; font-size: 11px; font-weight: 600;
+  border: 1px solid var(--card-border); border-radius: 8px;
+  background: var(--bg); color: var(--text-muted); cursor: pointer;
+  font-family: var(--font); transition: all 0.12s; white-space: nowrap;
+}
+.pl-bulk-btn:hover { border-color: var(--green); color: var(--green); background: var(--green-pale); }
+
 /* Status pill */
 .status-pill {
   display: inline-block; padding: 2px 8px; border-radius: 20px;
@@ -665,6 +675,10 @@ input:checked + .toggle-slider:before { transform: translateX(20px); }
     <div class="card" id="player-list-card">
       <div class="pl-header">
         <div class="section-title" style="margin-bottom:0">Players</div>
+        <div class="pl-bulk-btns">
+          <button class="pl-bulk-btn" id="select-all-btn">Select all</button>
+          <button class="pl-bulk-btn" id="unselect-all-btn">Unselect all</button>
+        </div>
       </div>
       <div class="pl-col-header" id="pl-col-header" style="display:none">
         <div class="pl-col-header-spacer"></div>
@@ -997,6 +1011,18 @@ input:checked + .toggle-slider:before { transform: translateX(20px); }
 <div class="overlay" id="reset-ov">
   <div class="modal-sm"><h3>Reset match?</h3><p>Clears all timers, scores and goals. Player names and settings are kept.</p>
     <div class="mbtns"><button id="reset-cancel">Cancel</button><button class="ok-red" id="reset-ok">Yes, reset</button></div>
+  </div>
+</div>
+
+<!-- Bulk on/off confirmation -->
+<div class="overlay" id="bulk-ov">
+  <div class="modal-sm">
+    <h3 id="bulk-ov-title"></h3>
+    <p id="bulk-ov-body"></p>
+    <div class="mbtns">
+      <button id="bulk-cancel">Cancel</button>
+      <button class="ok-blue" id="bulk-ok">Yes</button>
+    </div>
   </div>
 </div>
 
@@ -1760,6 +1786,49 @@ function togglePlayer(id,on){
   }
   savePlayers(); renderPlayerList();
 }
+
+// ── BULK SELECT / UNSELECT ALL ────────────────────────────────
+(function(){
+  let pendingBulk = null; // 'on' or 'off'
+
+  function openBulkModal(type){
+    pendingBulk = type;
+    const title = document.getElementById('bulk-ov-title');
+    const body  = document.getElementById('bulk-ov-body');
+    if(type === 'on'){
+      title.textContent = 'Bring everyone on?';
+      body.textContent  = 'This will toggle all players onto the pitch.';
+    } else {
+      title.textContent = 'Take everyone off?';
+      body.textContent  = 'This will toggle all players off the pitch.';
+    }
+    open('bulk-ov');
+  }
+
+  document.getElementById('select-all-btn').addEventListener('click', () => openBulkModal('on'));
+  document.getElementById('unselect-all-btn').addEventListener('click', () => openBulkModal('off'));
+
+  document.getElementById('bulk-cancel').addEventListener('click', () => {
+    pendingBulk = null; close('bulk-ov');
+  });
+
+  document.getElementById('bulk-ok').addEventListener('click', () => {
+    close('bulk-ov');
+    if(!pendingBulk) return;
+    const turnOn = pendingBulk === 'on';
+    pendingBulk = null;
+    if(playing) rebaseline();
+    players.forEach(p => {
+      p.onPitch = turnOn;
+      if(turnOn){
+        if(playing && masterStartTime !== null) startP(p);
+      } else {
+        stopP(p);
+      }
+    });
+    savePlayers(); renderPlayerList();
+  });
+})();
 function render(){ renderPlayerList(); applyBookingsVisibility(); }
 function clearSel(){}
 
